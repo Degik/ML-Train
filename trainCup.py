@@ -10,7 +10,7 @@ import IPython.display as display
 print("TRAINING CUP DATASET")
 # HYPERPARAMETER
 interval = 0.7
-learning_rate = 0.02
+learning_rate = 0.1
 num_epochs = 400
 momentum = 0.9
 threshold = 0.01
