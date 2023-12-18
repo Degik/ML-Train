@@ -1,55 +1,44 @@
 import os
 import torch
-import NetMonk
-import LoadDataMonk
+import NetCup
+import LoadDataCup
 import torch.nn as nn
 import torch.optim as optim
 import matplotlib.pyplot as plt
 import IPython.display as display
 
-print("TRAINING MONK DATASET")
-# NET TYPE
-netTypeList = {0: "Classifier", 1: "Regressor"}
-netType = 0 # 0 for Classifier, 1 for Regressor
+print("TRAINING CUP DATASET")
 # HYPERPARAMETER
 interval = 0.7
 learning_rate = 0.02
-hidden_units = 4
 num_epochs = 400
 momentum = 0.9
+threshold = 0.01
 # PATH
-pathTrain = "MONK/monks-1.train"
-pathTest = "MONK/monks-1.test"
-pathName = f'modelsMonk/Monk1-{hidden_units}-{learning_rate}-{netTypeList[netType]}'
+pathTrain = "CUP/ML-CUP23-TRAIN.csv"
+pathTestInput = "CUP/ML-CUP23-TEST-INPUT.csv"
+pathTestTarget = "CUP/ML-CUP23-TEST-TARGET.csv"
+pathName = f'modelsCup/Cup-{learning_rate}-Regressor'
 # IMPORT DATA
-dataMonk = LoadDataMonk.DataMonk(pathTrain, pathTest)
+dataCup = LoadDataCup.DataCup(pathTrain, pathTestInput, pathTestTarget)
 # DATA: TENSOR, GPU, DATALOADER
-dataMonk.convertToTensor()
-dataMonk.moveToGpu()
-data_loader_train, data_loader_test = dataMonk.createDataLoader()
+dataCup.convertToTensor()
+dataCup.moveToGpu()
+data_loader_train, data_loader_test = dataCup.createDataLoader()
 # CREATE NET
-# Classifier or Regressor
-if netTypeList[netType] == "Classifier":
-    print("Load classifier [net]")
-    net = NetMonk.NetMonkClassifier(hidden_units)
-else:
-    print("Load regressor [net]")
-    net = NetMonk.NetMonkRegressor(interval, hidden_units)
+# If you need to change the neurons number go to netCup.py
+print("Load regressor [net]")
+net = NetCup.NetCupRegressor()
 # MOVE NET TO GPU
 net = net.to("cuda:0")
 # SET TYPE NET
 net = net.double()
 # OPTIMIZER AND CRITERION
-# MSELoss for Regressor, CrossEntropyLoss for Classifier
-# SGD for Regressor, Adam for Classifier
-if netTypeList[netType] == "Classifier":
-    print("Load CrossEntropyLoss [criterion]\nLoad Adam [optimizer]")
-    criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(net.parameters(), lr=learning_rate)
-else:
-    print("Load MSELoss [criterion]\nLoad SGD [optimizer]")
-    criterion = nn.MSELoss()
-    optimizer = optim.SGD(net.parameters(), lr=learning_rate, momentum=momentum)
+# MSELoss for Regressor
+# SGD for Regressor
+print("Load MSELoss [criterion]\nLoad SGD [optimizer]")
+criterion = nn.MSELoss()
+optimizer = optim.SGD(net.parameters(), lr=learning_rate, momentum=momentum)
 
 # CREATE DIR
 os.makedirs(pathName, exist_ok=True)    
@@ -65,6 +54,14 @@ with open(f'{pathName}/model_parameters.txt', 'w') as file:
     file.write(str(net.layer2.weight.data) + '\n')
     file.write('Bias layer2\n')
     file.write(str(net.layer2.bias.data) + '\n')
+    file.write('Pesi layer3\n')
+    file.write(str(net.layer3.weight.data) + '\n')
+    file.write('Bias layer3\n')
+    file.write(str(net.layer3.bias.data) + '\n')
+    file.write('Pesi layer4\n')
+    file.write(str(net.layer4.weight.data) + '\n')
+    file.write('Bias layer4\n')
+    file.write(str(net.layer4.bias.data) + '\n')
 
 #Values used for graphs
 loss_values_train = []
@@ -85,12 +82,7 @@ for epoch in range(num_epochs):
         #Forward pass
         outputs = net(batch_input)
         #Training loss
-        loss = None
-        if netTypeList[netType] == "Classifier":
-            batch_output_squeeze = batch_output.squeeze().long()
-            loss = criterion(outputs, batch_output_squeeze)
-        else:
-            loss = criterion(outputs, batch_output)
+        loss = criterion(outputs, batch_output)
         #Calculate total loss
         total_loss += loss.item()
         #Backward and optimization
@@ -98,20 +90,15 @@ for epoch in range(num_epochs):
         loss.backward()
         optimizer.step()
         #
-        if netTypeList[netType] == "Classifier":
-            _, predicted = torch.max(outputs, 1)
-            correct += (predicted == batch_output_squeeze).sum().item()
-        else:
-            predicted = (outputs > 0.5).float()
-            correct += (predicted == batch_output).sum().item()
+        difference = torch.abs(outputs - batch_output)
         total += batch_input.size(0)
+        correct += torch.sum(difference < threshold)
     accuracy = correct / total
     best_accuracy_train = max(best_accuracy_train, accuracy)
-    accuracy_values_train.append(accuracy)
+    accuracy_values_train.append(accuracy.item())
     avg_loss = total_loss / len(data_loader_train)
     #Add to list
     loss_values_train.append(avg_loss)
-
 
     total = 0
     correct = 0
@@ -121,23 +108,14 @@ for epoch in range(num_epochs):
     with torch.no_grad():
         for batch_input, batch_output in data_loader_test:
             outputs = net(batch_input)
-            loss = None
-            if netTypeList[netType] == "Classifier":
-                batch_output_squeeze = batch_output.squeeze().long()
-                loss = criterion(outputs, batch_output_squeeze)
-            else:
-                loss = criterion(outputs, batch_output)
+            loss = criterion(outputs, batch_output)
             total_loss += loss.item()
-            if netTypeList[netType] == "Classifier":
-                _, predicted = torch.max(outputs, 1)
-                correct += (predicted == batch_output_squeeze).sum().item()
-            else:
-                predicted = (outputs > 0.5).float()
-                correct += (predicted == batch_output).sum().item()
+            difference = torch.abs(outputs - batch_output)
             total += batch_input.size(0)
+            correct += torch.sum(difference < threshold)
         accuracy = correct / total
         best_accuracy_test = max(best_accuracy_test, accuracy)
-        accuracy_values_test.append(accuracy)
+        accuracy_values_test.append(accuracy.item())
         avg_loss = total_loss / len(data_loader_test)
         loss_values_test.append(avg_loss)
     net.train()
@@ -164,7 +142,7 @@ plt.legend()
 plt.savefig(f'{pathName}/Accuracy-test.png')
 plt.clf()
 
-result = f'Hidden_size: {hidden_units}, Learning-rate: {learning_rate}, Best-Accuracy-Train: {best_accuracy_train:.4f}, Best-Accuracy-Test: {best_accuracy_test:.4f}'
+result = f'Learning-rate: {learning_rate}, Best-Accuracy-Train: {best_accuracy_train:.4f}, Best-Accuracy-Test: {best_accuracy_test:.4f}'
 with open(f"{pathName}/result.txt", 'w') as file:
     file.write(result + "\n")
 print(result)
