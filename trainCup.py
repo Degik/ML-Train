@@ -10,9 +10,9 @@ import IPython.display as display
 print("TRAINING CUP DATASET")
 # HYPERPARAMETER
 interval = 0.7
-learning_rate = 0.1
-num_epochs = 400
-momentum = 0.9
+learning_rate = 0.00008
+num_epochs = 1000
+momentum = 0.8
 threshold = 0.01
 # PATH
 pathTrain = "CUP/ML-CUP23-TRAIN.csv"
@@ -21,6 +21,8 @@ pathTestTarget = "CUP/ML-CUP23-TEST-TARGET.csv"
 pathName = f'modelsCup/Cup-{learning_rate}-Regressor'
 # IMPORT DATA
 dataCup = LoadDataCup.DataCup(pathTrain, pathTestInput, pathTestTarget)
+# SPLIT SET
+dataCup.splitData()
 # DATA: TENSOR, GPU, DATALOADER
 dataCup.convertToTensor()
 dataCup.moveToGpu()
@@ -29,6 +31,7 @@ data_loader_train, data_loader_test = dataCup.createDataLoader()
 # If you need to change the neurons number go to netCup.py
 print("Load regressor [net]")
 net = NetCup.NetCupRegressor()
+#net = NetCup.NetCupCNN()
 # MOVE NET TO GPU
 net = net.to("cuda:0")
 # SET TYPE NET
@@ -44,7 +47,7 @@ optimizer = optim.SGD(net.parameters(), lr=learning_rate, momentum=momentum)
 os.makedirs(pathName, exist_ok=True)    
 
 # MODEL SAVE
-torch.save(net, f'{pathName}/model.pth')
+"""
 with open(f'{pathName}/model_parameters.txt', 'w') as file:
     file.write('Pesi layer1\n')
     file.write(str(net.layer1.weight.data) + '\n')
@@ -62,7 +65,7 @@ with open(f'{pathName}/model_parameters.txt', 'w') as file:
     file.write(str(net.layer4.weight.data) + '\n')
     file.write('Bias layer4\n')
     file.write(str(net.layer4.bias.data) + '\n')
-
+"""
 #Values used for graphs
 loss_values_train = []
 accuracy_values_train = []
@@ -71,7 +74,8 @@ accuracy_values_test = []
 # BEST
 best_accuracy_train = 0.0
 best_accuracy_test = 0.0
-
+#
+results = []
 net.train()
 for epoch in range(num_epochs):
     total_loss = 0
@@ -93,12 +97,10 @@ for epoch in range(num_epochs):
         difference = torch.abs(outputs - batch_output)
         total += batch_input.size(0)
         correct += torch.sum(difference < threshold)
-    accuracy = correct / total
-    best_accuracy_train = max(best_accuracy_train, accuracy)
-    accuracy_values_train.append(accuracy.item())
-    avg_loss = total_loss / len(data_loader_train)
+    accuracy_train = correct / total
+    avg_loss_train = total_loss / len(data_loader_train)
     #Add to list
-    loss_values_train.append(avg_loss)
+    loss_values_train.append(avg_loss_train)
 
     total = 0
     correct = 0
@@ -113,12 +115,26 @@ for epoch in range(num_epochs):
             difference = torch.abs(outputs - batch_output)
             total += batch_input.size(0)
             correct += torch.sum(difference < threshold)
-        accuracy = correct / total
-        best_accuracy_test = max(best_accuracy_test, accuracy)
-        accuracy_values_test.append(accuracy.item())
-        avg_loss = total_loss / len(data_loader_test)
-        loss_values_test.append(avg_loss)
+        accuracy_test = correct / total
+        avg_loss_test = total_loss / len(data_loader_test)
+        loss_values_test.append(avg_loss_test)
     net.train()
+    
+    result = f'Epoch[{epoch+1}/{num_epochs}] Learning-rate: {learning_rate}, Loss-Train: {avg_loss_train:.4f}, Loss-Test: {avg_loss_test:.4f}, Best-Accuracy-Train: {accuracy_train:.4f}, Best-Accuracy-Test: {accuracy_test:.4f}'
+    print(result)
+    
+    #Set best accuracy
+    best_accuracy_train = max(best_accuracy_train, accuracy_train)
+    best_accuracy_test = max(best_accuracy_test, accuracy_test)
+    
+    #List append
+    accuracy_values_train.append(accuracy_train.item())
+    accuracy_values_test.append(accuracy_test.item())
+    results.append(result)
+    
+
+#Save model
+torch.save(net, f'{pathName}/model.pth')
 
 #Save plot loss
 display.clear_output(wait=True)
@@ -142,7 +158,9 @@ plt.legend()
 plt.savefig(f'{pathName}/Accuracy-test.png')
 plt.clf()
 
-result = f'Learning-rate: {learning_rate}, Best-Accuracy-Train: {best_accuracy_train:.4f}, Best-Accuracy-Test: {best_accuracy_test:.4f}'
-with open(f"{pathName}/result.txt", 'w') as file:
-    file.write(result + "\n")
-print(result)
+
+with open(f"{pathName}/results.txt", 'w') as file:
+    for res in results:
+        file.write(res + "\n")
+    bestPrint = f"Best-Accuracy-Train: {best_accuracy_train:.4f}, Best-Accuracy-Test: {best_accuracy_test:.4f}"
+    file.write(bestPrint + "\n")

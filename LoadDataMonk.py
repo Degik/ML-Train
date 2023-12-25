@@ -1,6 +1,7 @@
 import math
 import utils
 import torch
+import numpy as np
 from torch.utils.data import TensorDataset, DataLoader
 
 class DataMonk:
@@ -43,17 +44,24 @@ class DataMonk:
         self.x_test = self.x_test.to("cuda:0")
         self.y_test = self.y_test.to("cuda:0")
         
+    def convertY(self):
+        oldY = self.y_train
+        self.y_train = np.where(self.y_train==0, -1, oldY)
+        #self.y_test[self.y_train == 0] = -1
+        oldY = self.y_test
+        self.y_test = np.where(self.y_test==0, -1, oldY)
+        
     def createDataLoader(self) -> (DataLoader, DataLoader):
         # CREATE DATALOADER TRAIN
         size = self.x_train.size(0)
         batchTrain =  math.ceil(size/2)
         print("Batch size for training: ", batchTrain)
         dataset_train = TensorDataset(self.x_train, self.y_train)
-        data_loader_train = DataLoader(dataset_train, batch_size=batchTrain, shuffle=True)
+        data_loader_train = DataLoader(dataset_train, batch_size=169, shuffle=True)
         # CREATE DATALOADER TEST
         size = self.x_test.size(0)
         batchTest = math.ceil(size/2)
         print("Batch size for testing: ", batchTest)
         dataset_test = TensorDataset(self.x_test, self.y_test)
-        data_loader_test = DataLoader(dataset_test, batch_size=batchTest, shuffle=True)
+        data_loader_test = DataLoader(dataset_test, batch_size=432, shuffle=True)
         return data_loader_train, data_loader_test

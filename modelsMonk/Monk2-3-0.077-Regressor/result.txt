@@ -1,0 +1,1 @@
+Hidden_size: 3, Learning-rate: 0.077, Best-Accuracy-Train: 0.7811, Best-Accuracy-Test: 0.7523

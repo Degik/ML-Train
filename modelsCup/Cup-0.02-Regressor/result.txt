@@ -1,1 +1,0 @@
-Learning-rate: 0.02, Best-Accuracy-Train: 0.0060, Best-Accuracy-Test: 0.0144

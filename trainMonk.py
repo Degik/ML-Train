@@ -10,20 +10,21 @@ import IPython.display as display
 print("TRAINING MONK DATASET")
 # NET TYPE
 netTypeList = {0: "Classifier", 1: "Regressor"}
-netType = 0 # 0 for Classifier, 1 for Regressor
+netType = 1 # 0 for Classifier, 1 for Regressor
 # HYPERPARAMETER
-interval = 0.7
-learning_rate = 0.02
+interval = 0.25
+learning_rate = 0.8
 hidden_units = 4
-num_epochs = 400
-momentum = 0.9
+num_epochs = 500
+momentum = 0.8
 # PATH
-pathTrain = "MONK/monks-1.train"
-pathTest = "MONK/monks-1.test"
-pathName = f'modelsMonk/Monk1-{hidden_units}-{learning_rate}-{netTypeList[netType]}'
+pathTrain = "MONK/monks-2.train"
+pathTest = "MONK/monks-2.test"
+pathName = f'modelsMonk/Monk2-{hidden_units}-{learning_rate}-{netTypeList[netType]}'
 # IMPORT DATA
 dataMonk = LoadDataMonk.DataMonk(pathTrain, pathTest)
 # DATA: TENSOR, GPU, DATALOADER
+#dataMonk.convertY()
 dataMonk.convertToTensor()
 dataMonk.moveToGpu()
 data_loader_train, data_loader_test = dataMonk.createDataLoader()
@@ -84,6 +85,7 @@ for epoch in range(num_epochs):
     for batch_input, batch_output in data_loader_train:
         #Forward pass
         outputs = net(batch_input)
+        print(outputs)
         #Training loss
         loss = None
         if netTypeList[netType] == "Classifier":
@@ -132,6 +134,7 @@ for epoch in range(num_epochs):
                 _, predicted = torch.max(outputs, 1)
                 correct += (predicted == batch_output_squeeze).sum().item()
             else:
+                #predicted = torch.sign(outputs)
                 predicted = (outputs > 0.5).float()
                 correct += (predicted == batch_output).sum().item()
             total += batch_input.size(0)

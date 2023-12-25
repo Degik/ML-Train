@@ -1,6 +1,7 @@
 import math
 import utils
 import torch
+from sklearn.model_selection import train_test_split
 from torch.utils.data import TensorDataset, DataLoader
 
 class DataCup:
@@ -10,9 +11,12 @@ class DataCup:
         self.x_train = utils.importDatasetCupInput(pathTrain, blind=False)
         self.y_train = utils.importDatasetCupOutput(pathTrain, blind=False)
         ## TEST IMPORT DATASET
-        self.x_test = utils.importDatasetCupInput(pathTestInput, blind=True)
-        self.y_test = utils.importDatasetCupOutput(pathTestTarget, blind=True)
-        
+        #self.x_test = utils.importDatasetCupInput(pathTestInput, blind=True)
+        #self.y_test = utils.importDatasetCupOutput(pathTestTarget, blind=True)
+    
+    def splitData(self):
+        self.x_train, self.x_test, self.y_train, self.y_test = train_test_split(self.x_train, self.y_train, test_size=0.25,random_state=39)    
+    
     def convertToTensor(self):
         ## CONVERT TO TENSOR TRAIN SET
         self.x_train = torch.tensor(self.x_train.to_numpy())
@@ -37,14 +41,12 @@ class DataCup:
         
     def createDataLoader(self) -> (DataLoader, DataLoader):
         # CREATE DATALOADER TRAIN
-        size = self.x_train.size(0)
-        batchTrain =  math.ceil(size/2)
+        batchTrain =  64
         print("Batch size for training: ", batchTrain)
         dataset_train = TensorDataset(self.x_train, self.y_train)
         data_loader_train = DataLoader(dataset_train, batch_size=batchTrain, shuffle=True)
         # CREATE DATALOADER TEST
-        size = self.x_test.size(0)
-        batchTest = math.ceil(size/2)
+        batchTest = 64
         print("Batch size for testing: ", batchTest)
         dataset_test = TensorDataset(self.x_test, self.y_test)
         data_loader_test = DataLoader(dataset_test, batch_size=batchTest, shuffle=True)
