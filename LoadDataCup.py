@@ -22,22 +22,22 @@ class DataCup:
         self.x_train = torch.tensor(self.x_train.to_numpy())
         self.y_train = torch.tensor(self.y_train.to_numpy())
         # SET TYPE DOUBLE
-        self.x_train = self.x_train.double()
-        self.y_train = self.y_train.double()
+        self.x_train = self.x_train.float()
+        self.y_train = self.y_train.float()
         # CONVERT TO TENSOR
         self.x_test = torch.tensor(self.x_test.to_numpy())
         self.y_test = torch.tensor(self.y_test.to_numpy())
         # SET TYPE DOUBLE
-        self.x_test = self.x_test.double()
-        self.y_test = self.y_test.double()
+        self.x_test = self.x_test.float()
+        self.y_test = self.y_test.float()
     
-    def moveToGpu(self):
+    def moveToGpu(self, device:str = "cuda:0"):
         # MOVE TENSOR TRAIN TO GPU
-        self.x_train = self.x_train.to("cuda:0")
-        self.y_train = self.y_train.to("cuda:0")
+        self.x_train = self.x_train.to(device)
+        self.y_train = self.y_train.to(device)
         # MOVE TENSOR TO GPU
-        self.x_test = self.x_test.to("cuda:0")
-        self.y_test = self.y_test.to("cuda:0")
+        self.x_test = self.x_test.to(device)
+        self.y_test = self.y_test.to(device)
         
     def createDataLoader(self) -> (DataLoader, DataLoader):
         # CREATE DATALOADER TRAIN

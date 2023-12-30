@@ -23,7 +23,7 @@ def importDatasetCupOutput(file_name:str, blind:bool) -> pd.DataFrame:
         exit(1)
     columns_list = ['ID', 'Y1', 'Y2', 'Y3']
     if not blind: # Dataset with all inputs 
-        indexes = [0, 10, 11, 12] # take the first and last 3 columns indexes
+        indexes = [0, 11, 12, 13] # take the first and last 3 columns indexes
         dataset = dataset.iloc[:, indexes]
     dataset.columns = columns_list
     dataset.set_index('ID', inplace=True)
