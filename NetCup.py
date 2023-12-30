@@ -32,6 +32,8 @@ class NetCupRegressor(nn.Module):
             activationFunction = F.relu
         elif self.activation == "tanh":
             activationFunction = F.tanh
+        elif self.activation == "softmax":
+            activationFunction = F.softmax
         else:
             print("NESUNNA FUNZIONE DI ATTIVAZIONE!")
             exit(1)

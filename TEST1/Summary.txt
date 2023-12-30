@@ -1,0 +1,70 @@
+Grid Search Params: 
+ [[32, 64, 64], [16, 32, 32], [8, 16, 32], [8, 16, 16]] 
+ ['relu', 'tanh'] 
+ ['adam', 'sgd'] 
+ [0.0005, 0.005]
+
+Cup-[32-64-64]-adam-relu-0.0005
+   Best-loss-train: 0.0834, Best-loss-test: 0.3407, Best-Accuracy-Train: 0.1280, Best-Accuracy-Test: 0.1160
+Cup-[32-64-64]-adam-relu-0.005
+   Best-loss-train: 0.1351, Best-loss-test: 0.3376, Best-Accuracy-Train: 0.1000, Best-Accuracy-Test: 0.1120
+Cup-[32-64-64]-sgd-relu-0.0005
+   Best-loss-train: 0.0510, Best-loss-test: 0.2419, Best-Accuracy-Train: 0.1507, Best-Accuracy-Test: 0.1440
+Cup-[32-64-64]-sgd-relu-0.005
+   Best-loss-train: 0.1026, Best-loss-test: 0.3308, Best-Accuracy-Train: 0.1093, Best-Accuracy-Test: 0.1200
+Cup-[32-64-64]-adam-tanh-0.0005
+   Best-loss-train: 0.0215, Best-loss-test: 0.1539, Best-Accuracy-Train: 0.2027, Best-Accuracy-Test: 0.1840
+Cup-[32-64-64]-adam-tanh-0.005
+   Best-loss-train: 0.1002, Best-loss-test: 0.2144, Best-Accuracy-Train: 0.1333, Best-Accuracy-Test: 0.1320
+Cup-[32-64-64]-sgd-tanh-0.0005
+   Best-loss-train: 0.0275, Best-loss-test: 0.1654, Best-Accuracy-Train: 0.2013, Best-Accuracy-Test: 0.1720
+Cup-[32-64-64]-sgd-tanh-0.005
+   Best-loss-train: 0.1096, Best-loss-test: 0.2346, Best-Accuracy-Train: 0.1387, Best-Accuracy-Test: 0.1360
+Cup-[16-32-32]-adam-relu-0.0005
+   Best-loss-train: 0.2684, Best-loss-test: 0.6103, Best-Accuracy-Train: 0.0840, Best-Accuracy-Test: 0.0880
+Cup-[16-32-32]-adam-relu-0.005
+   Best-loss-train: 0.3760, Best-loss-test: 0.6482, Best-Accuracy-Train: 0.0680, Best-Accuracy-Test: 0.0920
+Cup-[16-32-32]-sgd-relu-0.0005
+   Best-loss-train: 0.1248, Best-loss-test: 0.4867, Best-Accuracy-Train: 0.1053, Best-Accuracy-Test: 0.1040
+Cup-[16-32-32]-sgd-relu-0.005
+   Best-loss-train: 0.1649, Best-loss-test: 0.4193, Best-Accuracy-Train: 0.0933, Best-Accuracy-Test: 0.0920
+Cup-[16-32-32]-adam-tanh-0.0005
+   Best-loss-train: 0.0563, Best-loss-test: 0.2821, Best-Accuracy-Train: 0.1400, Best-Accuracy-Test: 0.1440
+Cup-[16-32-32]-adam-tanh-0.005
+   Best-loss-train: 0.1635, Best-loss-test: 0.2547, Best-Accuracy-Train: 0.1147, Best-Accuracy-Test: 0.1240
+Cup-[16-32-32]-sgd-tanh-0.0005
+   Best-loss-train: 0.0522, Best-loss-test: 0.2517, Best-Accuracy-Train: 0.1440, Best-Accuracy-Test: 0.1400
+Cup-[16-32-32]-sgd-tanh-0.005
+   Best-loss-train: 0.1560, Best-loss-test: 0.2929, Best-Accuracy-Train: 0.1173, Best-Accuracy-Test: 0.1320
+Cup-[8-16-32]-adam-relu-0.0005
+   Best-loss-train: 1.0062, Best-loss-test: 1.5149, Best-Accuracy-Train: 0.0493, Best-Accuracy-Test: 0.0640
+Cup-[8-16-32]-adam-relu-0.005
+   Best-loss-train: 0.8663, Best-loss-test: 1.0521, Best-Accuracy-Train: 0.0493, Best-Accuracy-Test: 0.0640
+Cup-[8-16-32]-sgd-relu-0.0005
+   Best-loss-train: 0.4069, Best-loss-test: 0.9936, Best-Accuracy-Train: 0.0720, Best-Accuracy-Test: 0.0720
+Cup-[8-16-32]-sgd-relu-0.005
+   Best-loss-train: 0.3555, Best-loss-test: 0.6377, Best-Accuracy-Train: 0.0693, Best-Accuracy-Test: 0.0920
+Cup-[8-16-32]-adam-tanh-0.0005
+   Best-loss-train: 0.1742, Best-loss-test: 0.4237, Best-Accuracy-Train: 0.0973, Best-Accuracy-Test: 0.1040
+Cup-[8-16-32]-adam-tanh-0.005
+   Best-loss-train: 0.2955, Best-loss-test: 0.4666, Best-Accuracy-Train: 0.0800, Best-Accuracy-Test: 0.0880
+Cup-[8-16-32]-sgd-tanh-0.0005
+   Best-loss-train: 0.1205, Best-loss-test: 0.2948, Best-Accuracy-Train: 0.1053, Best-Accuracy-Test: 0.1120
+Cup-[8-16-32]-sgd-tanh-0.005
+   Best-loss-train: 0.3020, Best-loss-test: 0.5820, Best-Accuracy-Train: 0.0867, Best-Accuracy-Test: 0.0920
+Cup-[8-16-16]-adam-relu-0.0005
+   Best-loss-train: 0.9811, Best-loss-test: 1.3917, Best-Accuracy-Train: 0.0547, Best-Accuracy-Test: 0.0760
+Cup-[8-16-16]-adam-relu-0.005
+   Best-loss-train: 0.7741, Best-loss-test: 1.1293, Best-Accuracy-Train: 0.0573, Best-Accuracy-Test: 0.0760
+Cup-[8-16-16]-sgd-relu-0.0005
+   Best-loss-train: 0.5672, Best-loss-test: 0.9080, Best-Accuracy-Train: 0.0573, Best-Accuracy-Test: 0.0840
+Cup-[8-16-16]-sgd-relu-0.005
+   Best-loss-train: 0.4855, Best-loss-test: 0.8246, Best-Accuracy-Train: 0.0707, Best-Accuracy-Test: 0.0680
+Cup-[8-16-16]-adam-tanh-0.0005
+   Best-loss-train: 0.3671, Best-loss-test: 0.6000, Best-Accuracy-Train: 0.0707, Best-Accuracy-Test: 0.0840
+Cup-[8-16-16]-adam-tanh-0.005
+   Best-loss-train: 0.6547, Best-loss-test: 0.9166, Best-Accuracy-Train: 0.0693, Best-Accuracy-Test: 0.0800
+Cup-[8-16-16]-sgd-tanh-0.0005
+   Best-loss-train: 0.2084, Best-loss-test: 0.4262, Best-Accuracy-Train: 0.0893, Best-Accuracy-Test: 0.1000
+Cup-[8-16-16]-sgd-tanh-0.005
+   Best-loss-train: 0.4240, Best-loss-test: 0.5930, Best-Accuracy-Train: 0.0813, Best-Accuracy-Test: 0.0800

@@ -1,0 +1,38 @@
+Grid Search Params: 
+ [[32, 64, 128], [16, 32, 64]] 
+ ['relu', 'tanh'] 
+ ['adam', 'sgd'] 
+ [0.0005, 0.005] 
+
+[32-64-128]-adam-relu-0.0005
+   Best-loss-train: 0.1008, Best-loss-test: 0.3893, Best-Accuracy-Train: 0.1160, Best-Accuracy-Test: 0.1120
+[32-64-128]-adam-relu-0.005
+   Best-loss-train: 0.1119, Best-loss-test: 0.4234, Best-Accuracy-Train: 0.1080, Best-Accuracy-Test: 0.1080
+[32-64-128]-sgd-relu-0.0005
+   Best-loss-train: 0.0406, Best-loss-test: 0.2418, Best-Accuracy-Train: 0.1667, Best-Accuracy-Test: 0.1480
+[32-64-128]-sgd-relu-0.005
+   Best-loss-train: 0.0816, Best-loss-test: 0.2694, Best-Accuracy-Train: 0.1293, Best-Accuracy-Test: 0.1280
+[32-64-128]-adam-tanh-0.0005
+   Best-loss-train: 0.0194, Best-loss-test: 0.1486, Best-Accuracy-Train: 0.2120, Best-Accuracy-Test: 0.1840
+[32-64-128]-adam-tanh-0.005
+   Best-loss-train: 0.0981, Best-loss-test: 0.2096, Best-Accuracy-Train: 0.1213, Best-Accuracy-Test: 0.1480
+[32-64-128]-sgd-tanh-0.0005
+   Best-loss-train: 0.0298, Best-loss-test: 0.1421, Best-Accuracy-Train: 0.1867, Best-Accuracy-Test: 0.1920
+[32-64-128]-sgd-tanh-0.005
+   Best-loss-train: 0.0987, Best-loss-test: 0.2007, Best-Accuracy-Train: 0.1240, Best-Accuracy-Test: 0.1560
+[16-32-64]-adam-relu-0.0005
+   Best-loss-train: 0.2395, Best-loss-test: 0.5339, Best-Accuracy-Train: 0.0840, Best-Accuracy-Test: 0.1040
+[16-32-64]-adam-relu-0.005
+   Best-loss-train: 0.2778, Best-loss-test: 0.5594, Best-Accuracy-Train: 0.0787, Best-Accuracy-Test: 0.0960
+[16-32-64]-sgd-relu-0.0005
+   Best-loss-train: 0.0906, Best-loss-test: 0.4766, Best-Accuracy-Train: 0.1187, Best-Accuracy-Test: 0.1160
+[16-32-64]-sgd-relu-0.005
+   Best-loss-train: 0.1988, Best-loss-test: 0.5210, Best-Accuracy-Train: 0.0920, Best-Accuracy-Test: 0.0960
+[16-32-64]-adam-tanh-0.0005
+   Best-loss-train: 0.0342, Best-loss-test: 0.2651, Best-Accuracy-Train: 0.1800, Best-Accuracy-Test: 0.1560
+[16-32-64]-adam-tanh-0.005
+   Best-loss-train: 0.1332, Best-loss-test: 0.2337, Best-Accuracy-Train: 0.1160, Best-Accuracy-Test: 0.1360
+[16-32-64]-sgd-tanh-0.0005
+   Best-loss-train: 0.0452, Best-loss-test: 0.2076, Best-Accuracy-Train: 0.1520, Best-Accuracy-Test: 0.1600
+[16-32-64]-sgd-tanh-0.005
+   Best-loss-train: 0.1256, Best-loss-test: 0.2415, Best-Accuracy-Train: 0.1160, Best-Accuracy-Test: 0.1360
