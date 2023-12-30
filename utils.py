@@ -66,3 +66,7 @@ def convert_x(x_train: np.ndarray):
 
         new_y.append(new_row)
     return new_y
+
+
+def filterElement(listToSee):
+   return [elemento for elemento in listToSee if elemento <= 1.2]
