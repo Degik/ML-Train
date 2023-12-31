@@ -2,7 +2,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class NetCupRegressor(nn.Module):
-    def __init__(self, hd_layer1, hd_layer2, hd_layer3, activation:str = "relu"):
+    def __init__(self, hd_layer1, hd_layer2, hd_layer3, hd_layer4, activation:str = "relu"):
         super(NetCupRegressor, self).__init__()
         self.activation = activation
         
@@ -22,10 +22,11 @@ class NetCupRegressor(nn.Module):
         #nn.init.uniform_(self.layer2.weight, -0.7, 0.7)
         #nn.init.constant_(self.layer2.bias, 0.01)
         #Layer 3 Input: 100 Output: 25
-        self.layer4 = nn.Linear(hd_layer3, 3)
+        self.layer4 = nn.Linear(hd_layer3, hd_layer4)
         #nn.init.kaiming_normal_(self.layer2.weight, mode='fan_in', nonlinearity='relu')
         #nn.init.uniform_(self.layer3.weight, -0.7, 0.7)
         #nn.init.constant_(self.layer3.bias, 0.01)
+        self.layer5 = nn.Linear(hd_layer4, 3)
 
     def forward(self, x):
         if self.activation == "relu":
@@ -44,4 +45,6 @@ class NetCupRegressor(nn.Module):
         x = self.layer3(x)
         x = activationFunction(x)
         x = self.layer4(x)
+        x = activationFunction(x)
+        x = self.layer5(x)
         return x
