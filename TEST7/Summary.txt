@@ -1,0 +1,25 @@
+Grid Search Params: 
+ [[32, 64, 128, 256, 256]] 
+ ['tanh'] 
+ ['sgd'] 
+ [0.0001, 0.0002, 0.0003, 0.0004, 0.0005, 0.0006, 0.0007, 0.0008, 0.0009]
+ [0.9] 
+
+[32-64-128-256-256]-sgd-tanh-0.0001-0.9
+   Best-loss-train: 0.0094, Best-loss-test: 0.1514, Best-Accuracy-Train: 0.3213, Best-Accuracy-Test: 0.2120
+[32-64-128-256-256]-sgd-tanh-0.0002-0.9
+   Best-loss-train: 0.0110, Best-loss-test: 0.1485, Best-Accuracy-Train: 0.2800, Best-Accuracy-Test: 0.2120
+[32-64-128-256-256]-sgd-tanh-0.0003-0.9
+   Best-loss-train: 0.0121, Best-loss-test: 0.1904, Best-Accuracy-Train: 0.2893, Best-Accuracy-Test: 0.2000
+[32-64-128-256-256]-sgd-tanh-0.0004-0.9
+   Best-loss-train: 0.0127, Best-loss-test: 0.1511, Best-Accuracy-Train: 0.2667, Best-Accuracy-Test: 0.2040
+[32-64-128-256-256]-sgd-tanh-0.0005-0.9
+   Best-loss-train: 0.0141, Best-loss-test: 0.1285, Best-Accuracy-Train: 0.2573, Best-Accuracy-Test: 0.2320
+[32-64-128-256-256]-sgd-tanh-0.0006-0.9
+   Best-loss-train: 0.0170, Best-loss-test: 0.1456, Best-Accuracy-Train: 0.2267, Best-Accuracy-Test: 0.2120
+[32-64-128-256-256]-sgd-tanh-0.0007-0.9
+   Best-loss-train: 0.0183, Best-loss-test: 0.1425, Best-Accuracy-Train: 0.2307, Best-Accuracy-Test: 0.2080
+[32-64-128-256-256]-sgd-tanh-0.0008-0.9
+   Best-loss-train: 0.0187, Best-loss-test: 0.1373, Best-Accuracy-Train: 0.2213, Best-Accuracy-Test: 0.1960
+[32-64-128-256-256]-sgd-tanh-0.0009-0.9
+   Best-loss-train: 0.0200, Best-loss-test: 0.1593, Best-Accuracy-Train: 0.2173, Best-Accuracy-Test: 0.1880
