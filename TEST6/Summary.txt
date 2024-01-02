@@ -1,0 +1,19 @@
+Grid Search Params: 
+ [[32, 64, 128, 256, 512], [32, 64, 128, 256, 256]] 
+ ['tanh'] 
+ ['sgd'] 
+ [0.0005, 0.005, 0.05]
+ [0.9] 
+
+[32-64-128-256-512]-sgd-tanh-0.0005-0.9
+   Best-loss-train: 0.0121, Best-loss-test: 0.1325, Best-Accuracy-Train: 0.2613, Best-Accuracy-Test: 0.1960
+[32-64-128-256-512]-sgd-tanh-0.005-0.9
+   Best-loss-train: 0.0659, Best-loss-test: 0.1900, Best-Accuracy-Train: 0.1440, Best-Accuracy-Test: 0.1560
+[32-64-128-256-512]-sgd-tanh-0.05-0.9
+   Best-loss-train: 0.5149, Best-loss-test: 0.6367, Best-Accuracy-Train: 0.0653, Best-Accuracy-Test: 0.0880
+[32-64-128-256-256]-sgd-tanh-0.0005-0.9
+   Best-loss-train: 0.0104, Best-loss-test: 0.1469, Best-Accuracy-Train: 0.3067, Best-Accuracy-Test: 0.2360
+[32-64-128-256-256]-sgd-tanh-0.005-0.9
+   Best-loss-train: 0.0682, Best-loss-test: 0.1763, Best-Accuracy-Train: 0.1373, Best-Accuracy-Test: 0.1640
+[32-64-128-256-256]-sgd-tanh-0.05-0.9
+   Best-loss-train: 0.5524, Best-loss-test: 0.6398, Best-Accuracy-Train: 0.0640, Best-Accuracy-Test: 0.0760
