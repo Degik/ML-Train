@@ -1,0 +1,10 @@
+Grid Search Params: 
+ [[10, 32, 128, 128, 3]] 
+ ['tanh'] 
+ ['sgd'] 
+ [0.0005]
+ [0.9]
+ [0.001] 
+
+[10, 32, 128, 128, 3]-sgd-tanh-0.0005-0.9-0.001
+   Best-loss-train: 0.0337, Best-loss-test: 0.1541, Best-Accuracy-Train: 0.1760, Best-Accuracy-Test: 0.1480
