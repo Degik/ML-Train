@@ -203,7 +203,7 @@ for layers, activation, optimizerName, penality, momentum, lr in product(layers_
     plt.savefig(f'{pathName}/Accuracy-test.png')
     plt.clf()
 
-    with open(f"{pathName}/layer_structure.txt") as file:
+    with open(f"{pathName}/layer-structure.txt", "w") as file:
         for struct in structureNet:
             file.write(struct + "\n")
 
