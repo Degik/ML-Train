@@ -47,9 +47,10 @@ for layers, activation, optimizerName, penality, momentum, lr in product(layers_
     #dataCup.moveToGpu(device=device)
     data_loader_train, data_loader_test = dataCup.createDataLoader()
     # CREATE NET
+    structureNet = []
     # If you need to change the neurons number go to netCup.py
     print("Load regressor [net]")
-    net = NetCup.NetCupRegressorVar(layers, activation)
+    net = NetCup.NetCupRegressorVar(layers, structureNet, activation)
     #net = NetCup.NetCupCNN()
     # MOVE NET TO GPU
     #net = net.to(device)
@@ -202,6 +203,9 @@ for layers, activation, optimizerName, penality, momentum, lr in product(layers_
     plt.savefig(f'{pathName}/Accuracy-test.png')
     plt.clf()
 
+    with open(f"{pathName}/layer_structure.txt") as file:
+        for struct in structureNet:
+            file.write(struct + "\n")
 
     with open(f"{pathName}/results.txt", 'w') as file:
         for res in results:

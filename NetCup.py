@@ -56,13 +56,14 @@ class NetCupRegressor(nn.Module):
     
     
 class NetCupRegressorVar(nn.Module):
-    def __init__(self, hd_layers:list, activation:str = "relu"):
+    def __init__(self, hd_layers:list, structure:list, activation:str = "relu",):
         super(NetCupRegressorVar, self).__init__()
         self.activation = activation
         self.layers = nn.ModuleList()
         for i in range(len(hd_layers) - 1):
             self.layers.append(nn.Linear(hd_layers[i], hd_layers[i+1]))
-            print(f'Layer[{i+1}]: {hd_layers[i]} - {hd_layers[i+1]}')
+            res = f'Layer[{i+1}]: {hd_layers[i]} - {hd_layers[i+1]}'
+            structure.append(res)
 
     def forward(self, x):
         if self.activation == "relu":
