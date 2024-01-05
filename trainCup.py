@@ -50,7 +50,7 @@ for layers, activation, optimizerName, penality, momentum, lr in product(layers_
     structureNet = []
     # If you need to change the neurons number go to netCup.py
     print("Load regressor [net]")
-    net = NetCup.NetCupRegressorVar(layers, structureNet, activation)
+    net = NetCup.NetCupRegressor(layers, structureNet, activation)
     #net = NetCup.NetCupCNN()
     # MOVE NET TO GPU
     #net = net.to(device)
