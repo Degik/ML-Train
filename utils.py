@@ -46,6 +46,17 @@ def takeMonkInputDataset(dataset:pd.DataFrame) -> pd.DataFrame:
 def takeMonkOutputDataset(dataset:pd.DataFrame) -> pd.DataFrame:
     return dataset.iloc[:,[0]] #Return dataset with only first column
 
+def importDatasetCup(file_name:str):
+    try:
+        dataset = pd.read_csv(file_name, header=None, dtype=float)
+    except Exception as e:
+        print("Error | Can not read dataset cup for take output")
+        exit(1)
+
+    columns_name = ['ID'] + [f'X{i}' for i in range(1,11)] + ['Y1','Y2','Y3'] 
+    dataset.columns = columns_name
+    dataset.set_index('ID', inplace=True)
+    return dataset
 
 def convert_x(x_train: np.ndarray):
     dict_3 = {1: [1, 0, 0], 2: [0, 1, 0], 3: [0, 0, 1]}

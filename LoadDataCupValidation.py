@@ -11,10 +11,12 @@ class DataCup:
         pass
         self.k_folds = kfold
         ## TRAIN IMPORT DATASET
-        dataset = pd.read_csv(pathTrain)
+        dataset = utils.importDatasetCup(pathTrain)
         self.dataset_train, self.dataset_test = vF.train_test_split(dataset=dataset)
         # CREATE KFOLD
         self.dataset_train, self.dataset_val = vF.Kfold(self.dataset_train, self.k_folds)
+        #print(self.dataset_train)
+        #print(self.dataset_val)
         # SPLIT FOLDS
         self.x_train, self.x_test, self.y_train, self.y_test = vF.split_folds(self.dataset_val, self.dataset_train)    
     

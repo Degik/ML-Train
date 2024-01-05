@@ -25,12 +25,12 @@ threshold = 0.01
 #penality = 0.0005
 
 #grid search
-layers_conf = [[10, 32, 128, 128, 3]]
+layers_conf = [[10, 256, 256, 300, 3], [10, 40, 40, 80, 3], [10, 64, 128, 200, 128, 3]]
 activation_functions = ['tanh']
 optimizers = ['sgd']
-penalities = [0.0005]
+penalities = [0.001, 0.0005, 0.0001]
 momentums = [0.9]
-learning_rates = [0.001]
+learning_rates = [0.001, 0.0008, 0.0005]
 #
 k_folds = 4
 
@@ -41,8 +41,8 @@ dataCup = LoadDataCupValidation.DataCup(pathTrain, k_folds)
 # DATA: TENSOR, GPU, DATALOADER
 dataCup.convertToTensor()
 # MOVE TO GPU
-#device = "cuda:0"
-#dataCup.moveToGpu(device=device)
+device = "cuda:0"
+dataCup.moveToGpu(device=device)
 
 
 for layers, activation, optimizerName, penality, momentum, lr in product(layers_conf, activation_functions, optimizers, penalities, momentums, learning_rates):
@@ -56,7 +56,7 @@ for layers, activation, optimizerName, penality, momentum, lr in product(layers_
     print("Load regressor [net]")
     net = NetCup.NetCupRegressor(layers, structureNet, activation)
     # MOVE NET TO GPU
-    #net = net.to(device)
+    net = net.to(device)
     # SET TYPE NET
     net = net.float()
     # OPTIMIZER AND CRITERION
@@ -186,7 +186,7 @@ for layers, activation, optimizerName, penality, momentum, lr in product(layers_
             file.write(struct + "\n")
     
 with open("Summary.txt", "w") as file:
-    settings = f"Grid Search Params: \n {layers_conf} \n {activation_functions} \n {optimizers} \n {penalities}\n {momentums}\n {learning_rates} \n\n"
+    settings = f"Grid Search Params: \n Layers-conf: {layers_conf} \n Activation-function: {activation_functions} \n Optimizers: {optimizers} \n Lambdas: {penalities}\n Momentums: {momentums}\n Learning-rates: {learning_rates} \n\n"
     file.write(settings)
     for best in bestResults:
         file.write(best)
