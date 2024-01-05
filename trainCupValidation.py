@@ -46,7 +46,8 @@ device = "cuda:0"
 dataCup.moveToGpu(device=device)
 
 
-for number, layers, activation, optimizerName, penality, momentum, lr in enumerate(product(layers_conf, activation_functions, optimizers, penalities, momentums, learning_rates)):
+for number, config in enumerate(product(layers_conf, activation_functions, optimizers, penalities, momentums, learning_rates)):
+    layers, activation, optimizerName, penality, momentum, lr = config
     # PATH
     testName = f"{layers}-{optimizerName}-{activation}-{penality}-{momentum}-{lr}"
     pathName = f'modelsCup/Cup-{testName}'
