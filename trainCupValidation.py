@@ -33,7 +33,8 @@ momentums = [0.9]
 learning_rates = [0.001, 0.0008, 0.0005]
 #
 k_folds = 4
-
+#
+numberTest = len(layers_conf) * len(activation_functions) * len(optimizers) * len(penalities) * len(momentums) * len(learning_rates)
 bestResults = []
 
 # IMPORT DATA
@@ -45,7 +46,7 @@ device = "cuda:0"
 dataCup.moveToGpu(device=device)
 
 
-for layers, activation, optimizerName, penality, momentum, lr in product(layers_conf, activation_functions, optimizers, penalities, momentums, learning_rates):
+for number, layers, activation, optimizerName, penality, momentum, lr in enumerate(product(layers_conf, activation_functions, optimizers, penalities, momentums, learning_rates)):
     # PATH
     testName = f"{layers}-{optimizerName}-{activation}-{penality}-{momentum}-{lr}"
     pathName = f'modelsCup/Cup-{testName}'
@@ -130,7 +131,7 @@ for layers, activation, optimizerName, penality, momentum, lr in product(layers_
             net.train()
             
             result = f'KFold[{kfold+1}/{k_folds}] --> Epoch[{epoch+1}/{num_epochs}] Learning-rate: {lr}, Loss-Train: {avg_loss_train:.4f}, Loss-Val: {avg_loss_val:.4f}'
-            print(result)
+            print(f"GridSearch[{number+1}/{numberTest}] --> " + result)
             
             #Set best loss
             best_loss_train = min(best_loss_train, avg_loss_train)
