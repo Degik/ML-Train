@@ -157,6 +157,15 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
     
     mean_train_loss = np.mean(history_train, axis=0)
     mean_val_loss = np.mean(history_val, axis=0)
+    #Last
+    last_train_loss = [lst[-1] for lst in history_train]
+    last_val_loss = [lst[-1] for lst in history_val]
+    #Mean last
+    mean_last_train_loss = np.mean(last_train_loss)
+    mean_last_val_loss = np.mean(last_val_loss)
+    #Adding best results
+    bestPrint = f"     Mean-Last-Epoch-Train: {mean_last_train_loss:.4f}, Mean-Last-Epoch-Val: {mean_last_val_loss:.4f}"
+    bestResults.append(bestPrint)
     
     #Save plot loss
     display.clear_output(wait=True)
