@@ -169,18 +169,29 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
     plt.savefig(f'{pathName}/Mean-Loss.png')
     plt.clf()
     
-    #Save plot loss
+    #Save plot loss for training kfold
     display.clear_output(wait=True)
     for testNumber in range(k_folds):
-        plt.plot(history_train[testNumber], label='Training Loss-{testNumber}')
-        plt.plot(history_val[testNumber], label='Training Loss-{testNumber}')
-    plt.plot(mean_val_loss, label = 'Test loss')
+        plt.plot(history_train[testNumber], label=f'Train-Loss-{testNumber}')
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
     plt.title(f'Mean-Loss per Epoch')
     plt.ylim([0, 1.2])
     plt.legend()
-    plt.savefig(f'{pathName}/KFold-Loss.png')
+    plt.savefig(f'{pathName}/KFold-Loss-Train.png')
+    plt.clf()
+    
+    #Save plot loss for validation kfold
+    display.clear_output(wait=True)
+    display.clear_output(wait=True)
+    for testNumber in range(k_folds):
+        plt.plot(history_val[testNumber], label=f'Val-Loss-{testNumber}')
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.title(f'Mean-Loss per Epoch')
+    plt.ylim([0, 1.2])
+    plt.legend()
+    plt.savefig(f'{pathName}/KFold-Loss-Val.png')
     plt.clf()
 
     #Save plot accuracy
