@@ -7,14 +7,14 @@ from sklearn.model_selection import train_test_split
 from torch.utils.data import TensorDataset, DataLoader
 
 class DataCup:
-    def __init__(self, pathTrain:str, kfold:int = 4) -> None:
+    def __init__(self, pathTrain:str, kfold:int = 4, seed:int = 21) -> None:
         pass
         self.k_folds = kfold
         ## TRAIN IMPORT DATASET
         dataset = utils.importDatasetCup(pathTrain)
         self.dataset_train, self.dataset_test = vF.train_test_split(dataset=dataset)
         # CREATE KFOLD
-        self.dataset_train, self.dataset_val = vF.Kfold(self.dataset_train, self.k_folds)
+        self.dataset_train, self.dataset_val = vF.Kfold(self.dataset_train, self.k_folds, seed)
         #print(self.dataset_train)
         #print(self.dataset_val)
         # SPLIT FOLDS

@@ -18,6 +18,7 @@ print("TRAINING CUP DATASET")
 pathTrain = "CUP/ML-CUP23-TRAIN.csv"
 pathTestInput = "CUP/ML-CUP23-TEST-INPUT.csv"
 pathTestTarget = "CUP/ML-CUP23-TEST-TARGET.csv"
+seed = 42
 # HYPERPARAMETER
 num_epochs = 2000
 #momentum = 0.9
@@ -38,7 +39,7 @@ numberTest = len(layers_conf) * len(activation_functions) * len(optimizers) * le
 bestResults = []
 
 # IMPORT DATA
-dataCup = LoadDataCupValidation.DataCup(pathTrain, k_folds)
+dataCup = LoadDataCupValidation.DataCup(pathTrain, k_folds, seed)
 # DATA: TENSOR, GPU, DATALOADER
 dataCup.convertToTensor()
 # MOVE TO GPU
