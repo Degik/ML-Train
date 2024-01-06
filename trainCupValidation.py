@@ -52,28 +52,6 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
     testName = f"{layers}-{optimizerName}-{activation}-{penality}-{momentum}-{lr}"
     pathName = f'modelsCup/Cup-{testName}'
     bestResults.append(testName + "\n")
-    # CREATE NET
-    structureNet = []
-    # If you need to change the neurons number go to netCup.py
-    print("Load regressor [net]")
-    net = NetCup.NetCupRegressor(layers, structureNet, activation)
-    # MOVE NET TO GPU
-    net = net.to(device)
-    # SET TYPE NET
-    net = net.float()
-    # OPTIMIZER AND CRITERION
-    # MSELoss for Regressor
-    # SGD for Regressor
-    print("Load MSELoss [criterion]\nLoad SGD [optimizer]")
-    criterion = nn.MSELoss()
-    optimizer = None
-    if optimizerName == "adam":
-        optimizer = optim.Adam(net.parameters(), lr=lr, weight_decay=penality)
-    elif optimizerName == "sgd":
-        optimizer = optim.SGD(net.parameters(), lr=lr, momentum=momentum, weight_decay=penality)
-    else:
-        print("OPTIMIZER NON TROVATO!")
-        exit(1)
 
     # CREATE DIR
     os.makedirs(pathName, exist_ok=True)
@@ -82,6 +60,28 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
     history_val = []
     
     for kfold in range(k_folds):
+        # CREATE NET
+        structureNet = []
+        # If you need to change the neurons number go to netCup.py
+        print("Load regressor [net]")
+        net = NetCup.NetCupRegressor(layers, structureNet, activation)
+        # MOVE NET TO GPU
+        net = net.to(device)
+        # SET TYPE NET
+        net = net.float()
+        # OPTIMIZER AND CRITERION
+        # MSELoss for Regressor
+        # SGD for Regressor
+        print("Load MSELoss [criterion]\nLoad SGD [optimizer]")
+        criterion = nn.MSELoss()
+        optimizer = None
+        if optimizerName == "adam":
+            optimizer = optim.Adam(net.parameters(), lr=lr, weight_decay=penality)
+        elif optimizerName == "sgd":
+            optimizer = optim.SGD(net.parameters(), lr=lr, momentum=momentum, weight_decay=penality)
+        else:
+            print("OPTIMIZER NON TROVATO!")
+            exit(1)
         
         data_loader_train, data_loader_val = dataCup.createDataLoader(kfold)
         #Values used for graphs
@@ -163,10 +163,24 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
     plt.plot(mean_val_loss, label = 'Test loss')
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
-    plt.title(f'Loss per Epoch')
+    plt.title(f'Mean-Loss per Epoch')
     plt.ylim([0, 1.2])
     plt.legend()
-    plt.savefig(f'{pathName}/Loss.png')
+    plt.savefig(f'{pathName}/Mean-Loss.png')
+    plt.clf()
+    
+    #Save plot loss
+    display.clear_output(wait=True)
+    for testNumber in range(k_folds):
+        plt.plot(history_train[testNumber], label='Training Loss-{testNumber}')
+        plt.plot(history_val[testNumber], label='Training Loss-{testNumber}')
+    plt.plot(mean_val_loss, label = 'Test loss')
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.title(f'Mean-Loss per Epoch')
+    plt.ylim([0, 1.2])
+    plt.legend()
+    plt.savefig(f'{pathName}/Mean-Loss.png')
     plt.clf()
 
     #Save plot accuracy
