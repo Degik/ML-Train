@@ -26,15 +26,15 @@ threshold = 0.01
 #penality = 0.0005
 
 #grid search
-#layers_conf = [[10, 256, 256, 300, 3], [10, 40, 40, 80, 3], [10, 64, 128, 200, 128, 3]]
-layers_conf = [[10, 256, 256, 300, 3]]
+layers_conf = [[10, 256, 256, 300, 3], [10, 40, 40, 80, 3], [10, 64, 128, 200, 128, 3]]
+#layers_conf = [[10, 256, 256, 300, 3]]
 activation_functions = ['tanh']
 optimizers = ['sgd']
-#penalities = [0.001, 0.0005, 0.0001]
-penalities = [0.001]
+penalities = [0.001, 0.0005, 0.0001]
+#penalities = [0.001]
 momentums = [0.9]
-#learning_rates = [0.001, 0.0008, 0.0005]
-learning_rates = [0.001]
+learning_rates = [0.001, 0.0008, 0.0005]
+#learning_rates = [0.001]
 #
 k_folds = 4
 #
@@ -167,7 +167,7 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
     mean_last_train_loss = np.mean(last_train_loss)
     mean_last_val_loss = np.mean(last_val_loss)
     #Adding best results
-    bestPrint = f"     Mean-Last-Epoch-Train: {mean_last_train_loss:.4f}, Mean-Last-Epoch-Val: {mean_last_val_loss:.4f}"
+    bestPrint = f"     Mean-Last-Epoch-Train: {mean_last_train_loss:.4f}, Mean-Last-Epoch-Val: {mean_last_val_loss:.4f}\n"
     bestResults.append(bestPrint)
     
     #Save plot loss
