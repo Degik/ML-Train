@@ -5,7 +5,7 @@ def train_test_split(dataset: pd.DataFrame, test_ratio: float = 0.2):
     length = len(dataset)
 
     #shuffle the dataset
-    dataset_shuffled = dataset.sample(frac=1, random_state=42)  #'frac=1' means taking 100% of the data
+    dataset_shuffled = dataset.sample(frac=1, random_state=35)  #'frac=1' means taking 100% of the data
 
     test_len = int(length*test_ratio)
     train_len = int(length*(1-test_ratio))
