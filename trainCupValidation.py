@@ -180,7 +180,7 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
     plt.title(f'Mean-Loss per Epoch')
     plt.ylim([0, 1.2])
     plt.legend()
-    plt.savefig(f'{pathName}/Mean-Loss.png')
+    plt.savefig(f'{pathName}/KFold-Loss.png')
     plt.clf()
 
     #Save plot accuracy
