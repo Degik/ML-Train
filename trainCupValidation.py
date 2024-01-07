@@ -26,15 +26,15 @@ threshold = 0.01
 #penality = 0.0005
 
 #grid search
-#layers_conf = [[10, 256, 256, 300, 3], [10, 40, 40, 80, 3], [10, 64, 128, 200, 128, 3]]
-layers_conf = [[10, 256, 256, 300, 3]]
+layers_conf = [[10, 256, 256, 300, 3], [10, 40, 40, 80, 3], [10, 64, 128, 200, 128, 3]]
+#layers_conf = [[10, 256, 256, 300, 3]]
 activation_functions = ['tanh']
 optimizers = ['sgd']
-#penalities = [0.001, 0.0005, 0.0001]
-penalities = [0.001]
+penalities = [0.001, 0.0005, 0.0001]
+#penalities = [0.001]
 momentums = [0.9]
-#learning_rates = [0.001, 0.0008, 0.0005]
-learning_rates = [0.001]
+learning_rates = [0.001, 0.0008, 0.0005]
+#learning_rates = [0.001]
 #
 k_folds = 4
 #
@@ -230,6 +230,3 @@ with open("Summary.txt", "w") as file:
     file.write(settings)
     for best in bestResults:
         file.write(best)
-        
-print(dataCup.x_test)
-print(dataCup.y_test)
