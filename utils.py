@@ -1,7 +1,6 @@
 import torch
 import numpy as np
 import pandas as pd
-from torchmetrics.functional.pairwise import pairwise_euclidean_distance
 
 def importDatasetCupInput(file_name:str, blind:bool) -> pd.DataFrame:
     dataset = []
