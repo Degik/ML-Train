@@ -46,12 +46,12 @@ class DataCup:
         
     def createDataLoader(self, kfold) -> (DataLoader, DataLoader):
         # CREATE DATALOADER TRAIN
-        batchTrain =  2
+        batchTrain =  64
         print("Batch size for training: ", batchTrain)
         dataset_train = TensorDataset(self.x_train[kfold], self.y_train[kfold])
         data_loader_train = DataLoader(dataset_train, batch_size=batchTrain, shuffle=False)
         # CREATE DATALOADER TEST
-        batchTest = 2
+        batchTest = 64
         print("Batch size for testing: ", batchTest)
         dataset_test = TensorDataset(self.x_test[kfold], self.y_test[kfold])
         data_loader_test = DataLoader(dataset_test, batch_size=batchTest, shuffle=False)
