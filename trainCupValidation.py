@@ -230,3 +230,6 @@ with open("Summary.txt", "w") as file:
     file.write(settings)
     for best in bestResults:
         file.write(best)
+        
+print(dataCup.x_test)
+print(dataCup.y_test)
