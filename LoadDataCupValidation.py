@@ -12,7 +12,7 @@ class DataCup:
         self.k_folds = kfold
         ## TRAIN IMPORT DATASET
         dataset = utils.importDatasetCup(pathTrain)
-        self.dataset_train, self.dataset_test = vF.train_test_split(dataset=dataset)
+        self.dataset_train, self.dataset_test = vF.train_test_split(dataset=dataset, seed=seed)
         # CREATE KFOLD
         self.dataset_train, self.dataset_val = vF.Kfold(self.dataset_train, self.k_folds, seed)
         #print(self.dataset_train)
@@ -46,12 +46,12 @@ class DataCup:
         
     def createDataLoader(self, kfold) -> (DataLoader, DataLoader):
         # CREATE DATALOADER TRAIN
-        batchTrain =  64
+        batchTrain =  2
         print("Batch size for training: ", batchTrain)
         dataset_train = TensorDataset(self.x_train[kfold], self.y_train[kfold])
         data_loader_train = DataLoader(dataset_train, batch_size=batchTrain, shuffle=False)
         # CREATE DATALOADER TEST
-        batchTest = 64
+        batchTest = 2
         print("Batch size for testing: ", batchTest)
         dataset_test = TensorDataset(self.x_test[kfold], self.y_test[kfold])
         data_loader_test = DataLoader(dataset_test, batch_size=batchTest, shuffle=False)

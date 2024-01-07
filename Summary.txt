@@ -1,0 +1,15 @@
+Grid Search Params: 
+ Seed: 118 
+ Layers-conf: [[10, 100, 100, 3]] 
+ Activation-function: ['tanh'] 
+ Optimizers: ['sgd'] 
+ Lambdas: [0.0005]
+ Momentums: [0.9]
+ Learning-rates: [0.001] 
+
+[10, 100, 100, 3]-sgd-tanh-0.0005-0.9-0.001
+     KFold-0 -> Best-loss-train: 2.9378, Best-loss-val: 8.8135 
+     KFold-1 -> Best-loss-train: 2.8017, Best-loss-val: 8.4052 
+     KFold-2 -> Best-loss-train: 2.3940, Best-loss-val: 7.1820 
+     KFold-3 -> Best-loss-train: 3.3263, Best-loss-val: 9.9790 
+     Mean-Last-Epoch-Train: 8.5106, Mean-Last-Epoch-Val: 8.9014, MEE-Train: 7.1066, MEE-Val: 6.3780

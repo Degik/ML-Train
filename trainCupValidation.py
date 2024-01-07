@@ -1,6 +1,9 @@
 import os
+import time
+import utils
 import torch
 import NetCup
+import statistics
 import numpy as np
 import LoadDataCupValidation
 import torch.nn as nn
@@ -18,7 +21,7 @@ print("TRAINING CUP DATASET")
 pathTrain = "CUP/ML-CUP23-TRAIN.csv"
 pathTestInput = "CUP/ML-CUP23-TEST-INPUT.csv"
 pathTestTarget = "CUP/ML-CUP23-TEST-TARGET.csv"
-seed = 15
+seed = int(time.time()%150)
 # HYPERPARAMETER
 num_epochs = 2000
 #momentum = 0.9
@@ -26,15 +29,15 @@ threshold = 0.01
 #penality = 0.0005
 
 #grid search
-layers_conf = [[10, 256, 256, 300, 3], [10, 40, 40, 80, 3], [10, 64, 128, 200, 128, 3]]
-#layers_conf = [[10, 256, 256, 300, 3]]
+#layers_conf = [[10, 256, 256, 300, 3], [10, 40, 40, 80, 3], [10, 64, 128, 200, 128, 3]]
+layers_conf = [[10, 100, 100, 3]]
 activation_functions = ['tanh']
 optimizers = ['sgd']
-penalities = [0.001, 0.0005, 0.0001]
-#penalities = [0.001]
+#penalities = [0.001, 0.0005, 0.0001]
+penalities = [0.0005]
 momentums = [0.9]
-learning_rates = [0.001, 0.0008, 0.0005]
-#learning_rates = [0.001]
+#learning_rates = [0.001, 0.0008, 0.0005]
+learning_rates = [0.001]
 #
 k_folds = 4
 #
@@ -46,8 +49,8 @@ dataCup = LoadDataCupValidation.DataCup(pathTrain, k_folds, seed)
 # DATA: TENSOR, GPU, DATALOADER
 dataCup.convertToTensor()
 # MOVE TO GPU
-device = "cuda:0"
-dataCup.moveToGpu(device=device)
+#device = "cuda:0"
+#dataCup.moveToGpu(device=device)
 
 
 for number, config in enumerate(product(layers_conf, activation_functions, optimizers, penalities, momentums, learning_rates)):
@@ -63,6 +66,9 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
     history_train = []
     history_val = []
     
+    history_distance_train = []
+    history_distance_val = []
+    
     for kfold in range(k_folds):
         # CREATE NET
         structureNet = []
@@ -70,7 +76,7 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
         print("Load regressor [net]")
         net = NetCup.NetCupRegressor(layers, structureNet, activation)
         # MOVE NET TO GPU
-        net = net.to(device)
+        #net = net.to(device)
         # SET TYPE NET
         net = net.float()
         # OPTIMIZER AND CRITERION
@@ -93,6 +99,11 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
         accuracy_values_train = []
         loss_values_val = []
         accuracy_values_val = []
+        euclidean_distances_train = []
+        euclidean_distances_val = []
+        # Distance list
+        euclidean_distance_train = []
+        euclidean_distance_val = []
         # BEST
         best_accuracy_train = 0.0
         best_accuracy_val = 0.0
@@ -117,8 +128,11 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
                 optimizer.zero_grad()
                 loss.backward()
                 optimizer.step()
+                #Take distance
+                distance = utils.euclidean_distance_loss(batch_output, outputs)
+                #Add distance to others
+                euclidean_distance_train.append(distance.item())
             avg_loss_train = total_loss / len(data_loader_train)
-            #Add to list
             loss_values_train.append(avg_loss_train)
 
             total = 0
@@ -131,11 +145,24 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
                     outputs = net(batch_input)
                     loss = criterion(outputs, batch_output)
                     total_loss += loss.item()
+                    #Take distance
+                    distance = utils.euclidean_distance_loss(batch_output, outputs)
+                    #Add distance to others
+                    euclidean_distance_val.append(distance.item())
+                    
+                # Mean distance
+                mean_distance_train = statistics.mean(euclidean_distance_train)
+                mean_distance_val = statistics.mean(euclidean_distance_val)
+                # Mean loss
+                avg_loss_train = total_loss / len(data_loader_train)
                 avg_loss_val = total_loss / len(data_loader_val)
+                # Add to list
+                euclidean_distances_train.append(mean_distance_train)
+                euclidean_distances_val.append(mean_distance_val)
                 loss_values_val.append(avg_loss_val)
             net.train()
             
-            result = f'KFold[{kfold+1}/{k_folds}] --> Epoch[{epoch+1}/{num_epochs}] Learning-rate: {lr}, Loss-Train: {avg_loss_train:.4f}, Loss-Val: {avg_loss_val:.4f}'
+            result = f'KFold[{kfold+1}/{k_folds}] --> Epoch[{epoch+1}/{num_epochs}] Learning-rate: {lr}, Loss-Train: {avg_loss_train:.4f}, Loss-Val: {avg_loss_val:.4f} MEE-Train: {mean_distance_train:.4f}, MEE-Val: {mean_distance_val:.4f}'
             print(f"GridSearch[{number+1}/{numberTest}] --> " + result)
             
             #Set best loss
@@ -146,8 +173,12 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
 
         #END EPOCHS
         
+        #History loss
         history_train.append(loss_values_train)
         history_val.append(loss_values_val)
+        #History distance
+        history_distance_train.append(euclidean_distances_train)
+        history_distance_val.append(euclidean_distances_val)
         
         #Save best results
         bestPrint = f'     KFold-{kfold} -> Best-loss-train: {best_loss_train:.4f}, Best-loss-val: {best_loss_val:.4f} \n'
@@ -158,16 +189,24 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
                 file.write(res + "\n")
     #END KFOLD
     
+    #Mean history
     mean_train_loss = np.mean(history_train, axis=0)
     mean_val_loss = np.mean(history_val, axis=0)
-    #Last
+    mean_train_mee = np.mean(history_distance_train, axis=0)
+    mean_val_mee = np.mean(history_distance_val, axis=0)
+    #Last loss
     last_train_loss = [lst[-1] for lst in history_train]
     last_val_loss = [lst[-1] for lst in history_val]
+    #Last MEE
+    last_mee_train = [lst[-1] for lst in history_distance_train]
+    last_mee_val = [lst[-1] for lst in history_distance_val]
     #Mean last
     mean_last_train_loss = np.mean(last_train_loss)
     mean_last_val_loss = np.mean(last_val_loss)
+    mean_last_mee_train = np.mean(last_mee_train)
+    mean_last_mee_val = np.mean(last_mee_val)
     #Adding best results
-    bestPrint = f"     Mean-Last-Epoch-Train: {mean_last_train_loss:.4f}, Mean-Last-Epoch-Val: {mean_last_val_loss:.4f}\n"
+    bestPrint = f"     Mean-Last-Epoch-Train: {mean_last_train_loss:.4f}, Mean-Last-Epoch-Val: {mean_last_val_loss:.4f}, MEE-Train: {mean_last_mee_train:.4f}, MEE-Val: {mean_last_mee_val:.4f}\n"
     bestResults.append(bestPrint)
     
     #Save plot loss
@@ -180,6 +219,18 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
     plt.ylim([0, 1.2])
     plt.legend()
     plt.savefig(f'{pathName}/Mean-Loss.png')
+    plt.clf()
+    
+    #Save plot loss
+    display.clear_output(wait=True)
+    plt.plot(mean_train_mee, label='MEE-Training')
+    plt.plot(mean_val_mee, label = 'MEE-Test')
+    plt.xlabel('Epoch')
+    plt.ylabel('MEE')
+    plt.title(f'MEE per Epoch')
+    plt.ylim([0, 3.0])
+    plt.legend()
+    plt.savefig(f'{pathName}/MEE.png')
     plt.clf()
     
     #Save plot loss for training kfold
@@ -226,7 +277,7 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
             file.write(struct + "\n")
     
 with open("Summary.txt", "w") as file:
-    settings = f"Grid Search Params: \n Layers-conf: {layers_conf} \n Activation-function: {activation_functions} \n Optimizers: {optimizers} \n Lambdas: {penalities}\n Momentums: {momentums}\n Learning-rates: {learning_rates} \n\n"
+    settings = f"Grid Search Params: \n Seed: {seed} \n Layers-conf: {layers_conf} \n Activation-function: {activation_functions} \n Optimizers: {optimizers} \n Lambdas: {penalities}\n Momentums: {momentums}\n Learning-rates: {learning_rates} \n\n"
     file.write(settings)
     for best in bestResults:
         file.write(best)

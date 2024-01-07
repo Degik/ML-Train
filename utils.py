@@ -1,5 +1,7 @@
+import torch
 import numpy as np
 import pandas as pd
+from torchmetrics.functional.pairwise import pairwise_euclidean_distance
 
 def importDatasetCupInput(file_name:str, blind:bool) -> pd.DataFrame:
     dataset = []
@@ -81,3 +83,10 @@ def convert_x(x_train: np.ndarray):
 
 def filterElement(listToSee):
    return [elemento for elemento in listToSee if elemento <= 1.2]
+
+
+def euclidean_distance_loss(y_true, y_pred):
+    return torch.mean(torch.sqrt(torch.sum(torch.square(y_pred - y_true), axis=-1)))
+
+''' def euclidean_distance_loss(y_true, y_pred):
+    return tf.norm(y_true - y_pred, ord='euclidean') '''
