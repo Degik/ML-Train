@@ -29,14 +29,14 @@ threshold = 0.01
 #penality = 0.0005
 
 #grid search
-layers_conf = [[10, 256, 256, 300, 3], [10, 40, 40, 80, 3], [10, 64, 128, 200, 128, 3]]
+layers_conf = [[10, 256, 256, 300, 3], [10, 300, 300, 3], [10, 300, 3], [10, 256, 300, 256, 3], [10, 300, 256, 256, 3], [10, 512, 512, 600, 3]]
 #layers_conf = [[10, 100, 100, 3]]
 activation_functions = ['tanh']
 optimizers = ['sgd']
-penalities = [0.001, 0.0005, 0.0001]
+penalities = [0.001, 0.0005, 0.0001, 0.0002]
 #penalities = [0.0005]
-momentums = [0.9]
-learning_rates = [0.001, 0.0008, 0.0005]
+momentums = [0.9, 0.6]
+learning_rates = [0.001, 0.003, 0.0001, 0.0005]
 #learning_rates = [0.001]
 #
 k_folds = 4
@@ -49,8 +49,8 @@ dataCup = LoadDataCupValidation.DataCup(pathTrain, k_folds, seed)
 # DATA: TENSOR, GPU, DATALOADER
 dataCup.convertToTensor()
 # MOVE TO GPU
-#device = "cuda:0"
-#dataCup.moveToGpu(device=device)
+device = "cuda:0"
+dataCup.moveToGpu(device=device)
 
 
 for number, config in enumerate(product(layers_conf, activation_functions, optimizers, penalities, momentums, learning_rates)):
@@ -76,7 +76,7 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
         print("Load regressor [net]")
         net = NetCup.NetCupRegressor(layers, structureNet, activation)
         # MOVE NET TO GPU
-        #net = net.to(device)
+        net = net.to(device)
         # SET TYPE NET
         net = net.float()
         # OPTIMIZER AND CRITERION
