@@ -36,7 +36,7 @@ optimizers = ['sgd']
 penalities = [0.0001, 0.0002]
 #penalities = [0.0005]
 #momentums = [0.9, 0.6]
-momentums = [0.6]
+momentums = [0.9, 0.6]
 learning_rates = [0.001, 0.003]
 #learning_rates = [0.001]
 #
