@@ -23,20 +23,21 @@ pathTestInput = "CUP/ML-CUP23-TEST-INPUT.csv"
 pathTestTarget = "CUP/ML-CUP23-TEST-TARGET.csv"
 seed = int(time.time()%150)
 # HYPERPARAMETER
-num_epochs = 2000
+num_epochs = 4000
 #momentum = 0.9
 threshold = 0.01
 #penality = 0.0005
 
 #grid search
-layers_conf = [[10, 256, 256, 300, 3], [10, 300, 300, 3], [10, 300, 3], [10, 256, 300, 256, 3], [10, 300, 256, 256, 3], [10, 512, 512, 600, 3]]
+layers_conf = [[10, 256, 300, 256, 3], [10, 512, 512, 600, 3], [10, 512, 1024, 2048, 3]]
 #layers_conf = [[10, 100, 100, 3]]
-activation_functions = ['tanh']
+activation_functions = ['tanh', 'relu', 'LeakyReLU']
 optimizers = ['sgd']
-penalities = [0.001, 0.0005, 0.0001, 0.0002]
+penalities = [0.0001, 0.0002]
 #penalities = [0.0005]
-momentums = [0.9, 0.6]
-learning_rates = [0.001, 0.003, 0.0001, 0.0005]
+#momentums = [0.9, 0.6]
+momentums = [0.6]
+learning_rates = [0.001, 0.003]
 #learning_rates = [0.001]
 #
 k_folds = 4

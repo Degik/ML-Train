@@ -18,6 +18,8 @@ class NetCupRegressor(nn.Module):
             activationFunction = F.tanh
         elif self.activation == "softmax":
             activationFunction = F.softmax
+        elif self.activation == "LeakyReLU":
+            activationFunction = F.leaky_relu(0.1)
         else:
             print("NESUNNA FUNZIONE DI ATTIVAZIONE!")
             exit(1)
