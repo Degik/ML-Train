@@ -31,7 +31,7 @@ threshold = 0.01
 #grid search
 layers_conf = [[10, 256, 300, 256, 3], [10, 512, 512, 600, 3], [10, 512, 1024, 2048, 3]]
 #layers_conf = [[10, 100, 100, 3]]
-activation_functions = ['tanh', 'relu', 'LeakyReLU']
+activation_functions = ['tanh', 'relu']
 optimizers = ['sgd']
 penalities = [0.0001, 0.0002]
 #penalities = [0.0005]
