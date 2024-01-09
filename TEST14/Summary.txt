@@ -1,0 +1,201 @@
+Grid Search Params: 
+ Seed: 11 
+ Layers-conf: [[10, 80, 80, 80, 80, 80, 3]] 
+ Activation-function: ['tanh'] 
+ Optimizers: ['sgd'] 
+ Lambdas: [0.001, 0.0005, 0.0001, 0.0002]
+ Momentums: [0.9, 0.6]
+ Learning-rates: [0.001, 0.003, 0.0001, 0.0005] 
+
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.001-0.9-0.001
+     KFold-0 -> Best-loss-train: 0.0754, Best-loss-val: 0.1885 
+     KFold-1 -> Best-loss-train: 0.0958, Best-loss-val: 0.2396 
+     KFold-2 -> Best-loss-train: 0.0909, Best-loss-val: 0.2274 
+     KFold-3 -> Best-loss-train: 0.1235, Best-loss-val: 0.3087 
+     Mean-Last-Epoch-Train: 0.0231, Mean-Last-Epoch-Val: 0.2616, MEE-Train: 0.4090, MEE-Val: 0.7412
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.001-0.9-0.003
+     KFold-0 -> Best-loss-train: 0.1597, Best-loss-val: 0.3992 
+     KFold-1 -> Best-loss-train: 0.2062, Best-loss-val: 0.5154 
+     KFold-2 -> Best-loss-train: 0.3023, Best-loss-val: 0.7558 
+     KFold-3 -> Best-loss-train: 0.2244, Best-loss-val: 0.5609 
+     Mean-Last-Epoch-Train: 0.1574, Mean-Last-Epoch-Val: 0.7895, MEE-Train: 0.6606, MEE-Val: 1.2727
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.001-0.9-0.0001
+     KFold-0 -> Best-loss-train: 0.1148, Best-loss-val: 0.2871 
+     KFold-1 -> Best-loss-train: 0.1965, Best-loss-val: 0.4913 
+     KFold-2 -> Best-loss-train: 0.1517, Best-loss-val: 0.3793 
+     KFold-3 -> Best-loss-train: 0.2034, Best-loss-val: 0.5085 
+     Mean-Last-Epoch-Train: 0.0979, Mean-Last-Epoch-Val: 0.4165, MEE-Train: 1.2818, MEE-Val: 1.5394
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.001-0.9-0.0005
+     KFold-0 -> Best-loss-train: 0.0841, Best-loss-val: 0.2103 
+     KFold-1 -> Best-loss-train: 0.1062, Best-loss-val: 0.2654 
+     KFold-2 -> Best-loss-train: 0.1195, Best-loss-val: 0.2988 
+     KFold-3 -> Best-loss-train: 0.1044, Best-loss-val: 0.2610 
+     Mean-Last-Epoch-Train: 0.0271, Mean-Last-Epoch-Val: 0.2598, MEE-Train: 0.5272, MEE-Val: 0.8218
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.001-0.6-0.001
+     KFold-0 -> Best-loss-train: 0.1071, Best-loss-val: 0.2678 
+     KFold-1 -> Best-loss-train: 0.1248, Best-loss-val: 0.3121 
+     KFold-2 -> Best-loss-train: 0.1593, Best-loss-val: 0.3983 
+     KFold-3 -> Best-loss-train: 0.1334, Best-loss-val: 0.3335 
+     Mean-Last-Epoch-Train: 0.0450, Mean-Last-Epoch-Val: 0.3279, MEE-Train: 0.7377, MEE-Val: 1.0330
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.001-0.6-0.003
+     KFold-0 -> Best-loss-train: 0.1032, Best-loss-val: 0.2581 
+     KFold-1 -> Best-loss-train: 0.0994, Best-loss-val: 0.2485 
+     KFold-2 -> Best-loss-train: 0.1287, Best-loss-val: 0.3218 
+     KFold-3 -> Best-loss-train: 0.1118, Best-loss-val: 0.2794 
+     Mean-Last-Epoch-Train: 0.0240, Mean-Last-Epoch-Val: 0.2839, MEE-Train: 0.4274, MEE-Val: 0.7545
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.001-0.6-0.0001
+     KFold-0 -> Best-loss-train: 0.3081, Best-loss-val: 0.7702 
+     KFold-1 -> Best-loss-train: 0.4038, Best-loss-val: 1.0095 
+     KFold-2 -> Best-loss-train: 0.3490, Best-loss-val: 0.8725 
+     KFold-3 -> Best-loss-train: 0.5357, Best-loss-val: 1.3392 
+     Mean-Last-Epoch-Train: 0.4681, Mean-Last-Epoch-Val: 0.9979, MEE-Train: 3.0455, MEE-Val: 3.2417
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.001-0.6-0.0005
+     KFold-0 -> Best-loss-train: 0.1416, Best-loss-val: 0.3540 
+     KFold-1 -> Best-loss-train: 0.1441, Best-loss-val: 0.3603 
+     KFold-2 -> Best-loss-train: 0.1403, Best-loss-val: 0.3507 
+     KFold-3 -> Best-loss-train: 0.1469, Best-loss-val: 0.3671 
+     Mean-Last-Epoch-Train: 0.0826, Mean-Last-Epoch-Val: 0.3580, MEE-Train: 1.0884, MEE-Val: 1.3564
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0005-0.9-0.001
+     KFold-0 -> Best-loss-train: 0.0836, Best-loss-val: 0.2090 
+     KFold-1 -> Best-loss-train: 0.0788, Best-loss-val: 0.1970 
+     KFold-2 -> Best-loss-train: 0.1070, Best-loss-val: 0.2675 
+     KFold-3 -> Best-loss-train: 0.0994, Best-loss-val: 0.2485 
+     Mean-Last-Epoch-Train: 0.0240, Mean-Last-Epoch-Val: 0.2667, MEE-Train: 0.3763, MEE-Val: 0.7119
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0005-0.9-0.003
+     KFold-0 -> Best-loss-train: 0.5685, Best-loss-val: 1.4212 
+     KFold-1 -> Best-loss-train: 0.3447, Best-loss-val: 0.8617 
+     KFold-2 -> Best-loss-train: 0.1993, Best-loss-val: 0.4982 
+     KFold-3 -> Best-loss-train: 0.3149, Best-loss-val: 0.7872 
+     Mean-Last-Epoch-Train: 0.1169, Mean-Last-Epoch-Val: 1.0555, MEE-Train: 0.5728, MEE-Val: 1.5061
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0005-0.9-0.0001
+     KFold-0 -> Best-loss-train: 0.1476, Best-loss-val: 0.3689 
+     KFold-1 -> Best-loss-train: 0.1507, Best-loss-val: 0.3767 
+     KFold-2 -> Best-loss-train: 0.2046, Best-loss-val: 0.5114 
+     KFold-3 -> Best-loss-train: 0.1251, Best-loss-val: 0.3127 
+     Mean-Last-Epoch-Train: 0.0978, Mean-Last-Epoch-Val: 0.3924, MEE-Train: 1.2382, MEE-Val: 1.4953
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0005-0.9-0.0005
+     KFold-0 -> Best-loss-train: 0.0946, Best-loss-val: 0.2364 
+     KFold-1 -> Best-loss-train: 0.0961, Best-loss-val: 0.2404 
+     KFold-2 -> Best-loss-train: 0.1211, Best-loss-val: 0.3027 
+     KFold-3 -> Best-loss-train: 0.0880, Best-loss-val: 0.2200 
+     Mean-Last-Epoch-Train: 0.0215, Mean-Last-Epoch-Val: 0.2507, MEE-Train: 0.5090, MEE-Val: 0.8184
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0005-0.6-0.001
+     KFold-0 -> Best-loss-train: 0.1397, Best-loss-val: 0.3492 
+     KFold-1 -> Best-loss-train: 0.1278, Best-loss-val: 0.3194 
+     KFold-2 -> Best-loss-train: 0.1405, Best-loss-val: 0.3513 
+     KFold-3 -> Best-loss-train: 0.1390, Best-loss-val: 0.3475 
+     Mean-Last-Epoch-Train: 0.0405, Mean-Last-Epoch-Val: 0.3418, MEE-Train: 0.7258, MEE-Val: 1.0308
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0005-0.6-0.003
+     KFold-0 -> Best-loss-train: 0.1039, Best-loss-val: 0.2599 
+     KFold-1 -> Best-loss-train: 0.0778, Best-loss-val: 0.1945 
+     KFold-2 -> Best-loss-train: 0.1193, Best-loss-val: 0.2982 
+     KFold-3 -> Best-loss-train: 0.1147, Best-loss-val: 0.2867 
+     Mean-Last-Epoch-Train: 0.0184, Mean-Last-Epoch-Val: 0.2619, MEE-Train: 0.4085, MEE-Val: 0.7316
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0005-0.6-0.0001
+     KFold-0 -> Best-loss-train: 0.2989, Best-loss-val: 0.7472 
+     KFold-1 -> Best-loss-train: 0.3753, Best-loss-val: 0.9382 
+     KFold-2 -> Best-loss-train: 0.2808, Best-loss-val: 0.7021 
+     KFold-3 -> Best-loss-train: 0.5875, Best-loss-val: 1.4688 
+     Mean-Last-Epoch-Train: 0.4670, Mean-Last-Epoch-Val: 0.9641, MEE-Train: 3.0865, MEE-Val: 3.2962
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0005-0.6-0.0005
+     KFold-0 -> Best-loss-train: 0.1406, Best-loss-val: 0.3515 
+     KFold-1 -> Best-loss-train: 0.1631, Best-loss-val: 0.4078 
+     KFold-2 -> Best-loss-train: 0.1332, Best-loss-val: 0.3331 
+     KFold-3 -> Best-loss-train: 0.1716, Best-loss-val: 0.4289 
+     Mean-Last-Epoch-Train: 0.0805, Mean-Last-Epoch-Val: 0.3803, MEE-Train: 1.1037, MEE-Val: 1.3681
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0001-0.9-0.001
+     KFold-0 -> Best-loss-train: 0.0888, Best-loss-val: 0.2220 
+     KFold-1 -> Best-loss-train: 0.0853, Best-loss-val: 0.2132 
+     KFold-2 -> Best-loss-train: 0.0950, Best-loss-val: 0.2376 
+     KFold-3 -> Best-loss-train: 0.1329, Best-loss-val: 0.3321 
+     Mean-Last-Epoch-Train: 0.0325, Mean-Last-Epoch-Val: 0.3355, MEE-Train: 0.3642, MEE-Val: 0.7249
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0001-0.9-0.003
+     KFold-0 -> Best-loss-train: 0.2256, Best-loss-val: 0.5641 
+     KFold-1 -> Best-loss-train: 0.4805, Best-loss-val: 1.2012 
+     KFold-2 -> Best-loss-train: 0.3474, Best-loss-val: 0.8685 
+     KFold-3 -> Best-loss-train: 0.3427, Best-loss-val: 0.8568 
+     Mean-Last-Epoch-Train: 0.0057, Mean-Last-Epoch-Val: 0.9472, MEE-Train: 0.3542, MEE-Val: 1.2870
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0001-0.9-0.0001
+     KFold-0 -> Best-loss-train: 0.1317, Best-loss-val: 0.3292 
+     KFold-1 -> Best-loss-train: 0.1656, Best-loss-val: 0.4140 
+     KFold-2 -> Best-loss-train: 0.1306, Best-loss-val: 0.3264 
+     KFold-3 -> Best-loss-train: 0.1738, Best-loss-val: 0.4345 
+     Mean-Last-Epoch-Train: 0.0895, Mean-Last-Epoch-Val: 0.3760, MEE-Train: 1.2431, MEE-Val: 1.5082
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0001-0.9-0.0005
+     KFold-0 -> Best-loss-train: 0.0901, Best-loss-val: 0.2253 
+     KFold-1 -> Best-loss-train: 0.0854, Best-loss-val: 0.2135 
+     KFold-2 -> Best-loss-train: 0.1481, Best-loss-val: 0.3702 
+     KFold-3 -> Best-loss-train: 0.1153, Best-loss-val: 0.2883 
+     Mean-Last-Epoch-Train: 0.0197, Mean-Last-Epoch-Val: 0.2743, MEE-Train: 0.5034, MEE-Val: 0.8157
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0001-0.6-0.001
+     KFold-0 -> Best-loss-train: 0.1269, Best-loss-val: 0.3173 
+     KFold-1 -> Best-loss-train: 0.1155, Best-loss-val: 0.2889 
+     KFold-2 -> Best-loss-train: 0.1403, Best-loss-val: 0.3506 
+     KFold-3 -> Best-loss-train: 0.1159, Best-loss-val: 0.2897 
+     Mean-Last-Epoch-Train: 0.0375, Mean-Last-Epoch-Val: 0.3116, MEE-Train: 0.7153, MEE-Val: 1.0129
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0001-0.6-0.003
+     KFold-0 -> Best-loss-train: 0.0788, Best-loss-val: 0.1970 
+     KFold-1 -> Best-loss-train: 0.1007, Best-loss-val: 0.2517 
+     KFold-2 -> Best-loss-train: 0.1088, Best-loss-val: 0.2720 
+     KFold-3 -> Best-loss-train: 0.1098, Best-loss-val: 0.2746 
+     Mean-Last-Epoch-Train: 0.0146, Mean-Last-Epoch-Val: 0.2625, MEE-Train: 0.3893, MEE-Val: 0.7347
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0001-0.6-0.0001
+     KFold-0 -> Best-loss-train: 0.2586, Best-loss-val: 0.6465 
+     KFold-1 -> Best-loss-train: 0.3933, Best-loss-val: 0.9831 
+     KFold-2 -> Best-loss-train: 0.2558, Best-loss-val: 0.6394 
+     KFold-3 -> Best-loss-train: 0.5951, Best-loss-val: 1.4878 
+     Mean-Last-Epoch-Train: 0.4458, Mean-Last-Epoch-Val: 0.9392, MEE-Train: 3.0452, MEE-Val: 3.2313
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0001-0.6-0.0005
+     KFold-0 -> Best-loss-train: 0.1446, Best-loss-val: 0.3614 
+     KFold-1 -> Best-loss-train: 0.1464, Best-loss-val: 0.3659 
+     KFold-2 -> Best-loss-train: 0.1512, Best-loss-val: 0.3780 
+     KFold-3 -> Best-loss-train: 0.1501, Best-loss-val: 0.3751 
+     Mean-Last-Epoch-Train: 0.0740, Mean-Last-Epoch-Val: 0.3701, MEE-Train: 1.1154, MEE-Val: 1.3991
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0002-0.9-0.001
+     KFold-0 -> Best-loss-train: 0.0799, Best-loss-val: 0.1997 
+     KFold-1 -> Best-loss-train: 0.0820, Best-loss-val: 0.2050 
+     KFold-2 -> Best-loss-train: 0.1155, Best-loss-val: 0.2887 
+     KFold-3 -> Best-loss-train: 0.1191, Best-loss-val: 0.2978 
+     Mean-Last-Epoch-Train: 0.0125, Mean-Last-Epoch-Val: 0.2544, MEE-Train: 0.3697, MEE-Val: 0.7277
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0002-0.9-0.003
+     KFold-0 -> Best-loss-train: 0.2325, Best-loss-val: 0.5812 
+     KFold-1 -> Best-loss-train: 0.9326, Best-loss-val: 2.3316 
+     KFold-2 -> Best-loss-train: 0.4310, Best-loss-val: 1.0774 
+     KFold-3 -> Best-loss-train: 0.2851, Best-loss-val: 0.7127 
+     Mean-Last-Epoch-Train: 0.0348, Mean-Last-Epoch-Val: 1.2324, MEE-Train: 0.4365, MEE-Val: 1.5057
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0002-0.9-0.0001
+     KFold-0 -> Best-loss-train: 0.1335, Best-loss-val: 0.3338 
+     KFold-1 -> Best-loss-train: 0.1719, Best-loss-val: 0.4297 
+     KFold-2 -> Best-loss-train: 0.1655, Best-loss-val: 0.4138 
+     KFold-3 -> Best-loss-train: 0.1705, Best-loss-val: 0.4261 
+     Mean-Last-Epoch-Train: 0.0924, Mean-Last-Epoch-Val: 0.4009, MEE-Train: 1.2327, MEE-Val: 1.4835
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0002-0.9-0.0005
+     KFold-0 -> Best-loss-train: 0.0878, Best-loss-val: 0.2194 
+     KFold-1 -> Best-loss-train: 0.0965, Best-loss-val: 0.2413 
+     KFold-2 -> Best-loss-train: 0.1066, Best-loss-val: 0.2666 
+     KFold-3 -> Best-loss-train: 0.1151, Best-loss-val: 0.2877 
+     Mean-Last-Epoch-Train: 0.0198, Mean-Last-Epoch-Val: 0.2543, MEE-Train: 0.5035, MEE-Val: 0.8162
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0002-0.6-0.001
+     KFold-0 -> Best-loss-train: 0.1321, Best-loss-val: 0.3304 
+     KFold-1 -> Best-loss-train: 0.1281, Best-loss-val: 0.3203 
+     KFold-2 -> Best-loss-train: 0.1026, Best-loss-val: 0.2564 
+     KFold-3 -> Best-loss-train: 0.1360, Best-loss-val: 0.3401 
+     Mean-Last-Epoch-Train: 0.0378, Mean-Last-Epoch-Val: 0.3118, MEE-Train: 0.7209, MEE-Val: 1.0262
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0002-0.6-0.003
+     KFold-0 -> Best-loss-train: 0.0942, Best-loss-val: 0.2356 
+     KFold-1 -> Best-loss-train: 0.0881, Best-loss-val: 0.2201 
+     KFold-2 -> Best-loss-train: 0.1144, Best-loss-val: 0.2860 
+     KFold-3 -> Best-loss-train: 0.1292, Best-loss-val: 0.3230 
+     Mean-Last-Epoch-Train: 0.0157, Mean-Last-Epoch-Val: 0.2693, MEE-Train: 0.3988, MEE-Val: 0.7349
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0002-0.6-0.0001
+     KFold-0 -> Best-loss-train: 0.2841, Best-loss-val: 0.7103 
+     KFold-1 -> Best-loss-train: 0.3313, Best-loss-val: 0.8284 
+     KFold-2 -> Best-loss-train: 0.3271, Best-loss-val: 0.8178 
+     KFold-3 -> Best-loss-train: 0.6320, Best-loss-val: 1.5801 
+     Mean-Last-Epoch-Train: 0.5410, Mean-Last-Epoch-Val: 0.9841, MEE-Train: 2.9508, MEE-Val: 3.1582
+[10, 80, 80, 80, 80, 80, 3]-sgd-tanh-0.0002-0.6-0.0005
+     KFold-0 -> Best-loss-train: 0.1209, Best-loss-val: 0.3023 
+     KFold-1 -> Best-loss-train: 0.1446, Best-loss-val: 0.3615 
+     KFold-2 -> Best-loss-train: 0.1426, Best-loss-val: 0.3565 
+     KFold-3 -> Best-loss-train: 0.1326, Best-loss-val: 0.3314 
+     Mean-Last-Epoch-Train: 0.0765, Mean-Last-Epoch-Val: 0.3379, MEE-Train: 1.0749, MEE-Val: 1.3356
