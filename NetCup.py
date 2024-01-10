@@ -7,7 +7,9 @@ class NetCupRegressor(nn.Module):
         self.activation = activation
         self.layers = nn.ModuleList()
         for i in range(len(hd_layers) - 1):
-            self.layers.append(nn.Linear(hd_layers[i], hd_layers[i+1]))
+            layer = nn.Linear(hd_layers[i], hd_layers[i+1])
+            nn.init.orthogonal_(layer.weight)
+            self.layers.append(layer)
             res = f'Layer[{i+1}]: {hd_layers[i]} - {hd_layers[i+1]}'
             structure.append(res)
 
