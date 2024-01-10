@@ -23,20 +23,35 @@ pathTestInput = "CUP/ML-CUP23-TEST-INPUT.csv"
 pathTestTarget = "CUP/ML-CUP23-TEST-TARGET.csv"
 seed = int(time.time()%150)
 # HYPERPARAMETER
-num_epochs = 10000
+num_epochs = 5000
 #momentum = 0.9
 threshold = 0.01
 #penality = 0.0005
 
 #grid search
 layers_conf = [[10, 512, 512, 600, 3]]
-#layers_conf = [[10, 100, 100, 3]]
+''' layers_conf = [[10, 100, 3],
+[10, 300, 3],
+[10, 100, 100, 3],
+[10, 300, 300, 3],
+[10, 10, 10, 20, 3],
+[10, 32, 64, 64, 3],
+[10, 40, 40, 80, 3],
+[10, 256, 256, 300, 3],
+[10, 256, 300, 256, 3],
+[10, 300, 256, 256, 3],
+[10, 512, 512, 600, 3],
+[10, 512, 1024, 2048, 3],
+[10, 64, 128, 200, 128, 3], 
+[10, 80, 80, 80, 80, 80, 3],
+[10, 256, 512, 768, 1024, 3],
+[10, 256, 512, 768, 1024, 1280, 3]] '''
 activation_functions = ['tanh']
 optimizers = ['sgd']
 #penalities = [0.001, 0.0005, 0.0001, 0.0002]
 penalities = [0.0001]
-#momentums = [0.9, 0.6]
 momentums = [0.9]
+#momentums = [0.9, 0.8, 0.6]
 #learning_rates = [0.001, 0.003, 0.0001, 0.0005] 
 learning_rates = [0.001]
 #
