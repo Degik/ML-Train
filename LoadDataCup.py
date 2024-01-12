@@ -5,14 +5,14 @@ from sklearn.model_selection import train_test_split
 from torch.utils.data import TensorDataset, DataLoader
 
 class DataCup:
-    def __init__(self, pathTrain:str, pathTestInput:str, pathTestTarget) -> None:
+    def __init__(self, pathTrain:str) -> None:
         pass   
         ## TRAIN IMPORT DATASET
         self.x_train = utils.importDatasetCupInput(pathTrain, blind=False)
         self.y_train = utils.importDatasetCupOutput(pathTrain, blind=False)
     
     def splitData(self):
-        self.x_train, self.x_test, self.y_train, self.y_test = train_test_split(self.x_train, self.y_train, test_size=0.25,random_state=39)    
+        self.x_train, self.x_test, self.y_train, self.y_test = train_test_split(self.x_train, self.y_train, test_size=0.2,random_state=39)    
     
     def convertToTensor(self):
         ## CONVERT TO TENSOR TRAIN SET

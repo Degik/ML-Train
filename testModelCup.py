@@ -9,7 +9,6 @@ import LoadDataCup
 import torch.nn as nn
 import torch.optim as optim
 import matplotlib.pyplot as plt
-import validationFunctions as vF
 import IPython.display as display
 
 from itertools import product
@@ -29,7 +28,7 @@ threshold = 0.01
 #penality = 0.0005
 
 #grid search
-layers_conf = [[10, 512, 512, 600, 3]]
+layers_conf = [[10, 256, 256, 300, 3]]
 ''' layers_conf = [[10, 100, 3],
 [10, 300, 3],
 [10, 100, 100, 3],
@@ -49,27 +48,26 @@ layers_conf = [[10, 512, 512, 600, 3]]
 activation_functions = ['tanh']
 optimizers = ['sgd']
 #penalities = [0.001, 0.0005, 0.0001, 0.0002]
-penalities = [0.0001]
-momentums = [0.9]
+penalities = [0.0002]
+momentums = [0.8]
 #momentums = [0.9, 0.8, 0.6]
 #learning_rates = [0.001, 0.003, 0.0001, 0.0005] 
-learning_rates = [0.001]
-#
-k_folds = 4
+learning_rates = [0.003]
 #
 numberTest = len(layers_conf) * len(activation_functions) * len(optimizers) * len(penalities) * len(momentums) * len(learning_rates)
 bestResults = []
 
 # IMPORT DATA
 dataCup = LoadDataCup.DataCup(pathTrain)
-#
+#Split Data
 dataCup.splitData()
 # DATA: TENSOR, GPU, DATALOADER
 dataCup.convertToTensor()
 # MOVE TO GPU
-#device = "cuda:0"
-#dataCup.moveToGpu(device=device)
-
+device = "cuda:0"
+dataCup.moveToGpu(device=device)
+###
+data_loader_train, data_loader_test = dataCup.createDataLoader()
 
 
 for number, config in enumerate(product(layers_conf, activation_functions, optimizers, penalities, momentums, learning_rates)):
@@ -83,17 +81,18 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
     os.makedirs(pathName, exist_ok=True)
     
     history_train = []
-    history_val = []
+    history_test = []
     
     history_distance_train = []
-    history_distance_val = []
+    history_distance_test = []
+    
     # CREATE NET
     structureNet = []
     # If you need to change the neurons number go to netCup.py
     print("Load regressor [net]")
     net = NetCup.NetCupRegressor(layers, structureNet, activation)
     # MOVE NET TO GPU
-    #net = net.to(device)
+    net = net.to(device)
     # SET TYPE NET
     net = net.float()
     # OPTIMIZER AND CRITERION
@@ -110,16 +109,21 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
         print("OPTIMIZER NON TROVATO!")
         exit(1)
     
-    data_loader_train, data_loader_test = dataCup.createDataLoader()
     #Values used for graphs
-    loss_values_train = []
-    accuracy_values_train = []
+    loss_testues_train = []
+    accuracy_testues_train = []
+    loss_testues_test = []
+    accuracy_testues_test = []
     euclidean_distances_train = []
+    euclidean_distances_test = []
     # Distance list
     euclidean_distance_train = []
+    euclidean_distance_test = []
     # BEST
     best_accuracy_train = 0.0
+    best_accuracy_test = 0.0
     best_loss_train = 100.0
+    best_loss_test = 100.0
     #
     results = []
     net.train()
@@ -144,53 +148,55 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
             #Add distance to others
             euclidean_distance_train.append(distance.item())
         avg_loss_train = total_loss / len(data_loader_train)
-        loss_values_train.append(avg_loss_train)
+        loss_testues_train.append(avg_loss_train)
+
+        total = 0
+        correct = 0
+        #CALCULATE ACCURACY test
+        net.etest()
+        total_loss = 0
+        with torch.no_grad():
+            for batch_input, batch_output in data_loader_test:
+                outputs = net(batch_input)
+                loss = criterion(outputs, batch_output)
+                total_loss += loss.item()
+                #Take distance
+                distance = utils.euclidean_distance_loss(batch_output, outputs)
+                #Add distance to others
+                euclidean_distance_test.append(distance.item())
+                
+            # Mean distance
+            mean_distance_train = statistics.mean(euclidean_distance_train)
+            mean_distance_test = statistics.mean(euclidean_distance_test)
+            # Mean loss
+            avg_loss_train = total_loss / len(data_loader_train)
+            avg_loss_test = total_loss / len(data_loader_test)
+            # Add to list
+            euclidean_distances_train.append(mean_distance_train)
+            euclidean_distances_test.append(mean_distance_test)
+            loss_testues_test.append(avg_loss_test)
+        net.train()
         
-        # Mean distance
-        mean_distance_train = statistics.mean(euclidean_distance_train)
-        # Add to list
-        euclidean_distances_train.append(mean_distance_train)
-        # Mean loss
-        avg_loss_train = total_loss / len(data_loader_train)
-        
-        result = f'Epoch[{epoch+1}/{num_epochs}] Learning-rate: {lr}, Loss-Train: {avg_loss_train:.4f} MEE-Train: {mean_distance_train:.4f}, MEE-Val: {mean_distance_val:.4f}'
+        result = f'Epoch[{epoch+1}/{num_epochs}] Learning-rate: {lr}, Loss-Train: {avg_loss_train:.4f}, Loss-test: {avg_loss_test:.4f} MEE-Train: {mean_distance_train:.4f}, MEE-test: {mean_distance_test:.4f}'
         print(f"Test[{number+1}/{numberTest}] --> " + result)
         
         #Set best loss
         best_loss_train = min(best_loss_train, avg_loss_train)
+        best_loss_test = min(best_loss_test, avg_loss_test)
         #List append
-        results.append(result)
-        
+        results.append(result) 
+
     #END EPOCHS
-    total = 0
-    correct = 0
-    #CALCULATE ACCURACY TEST
-    net.eval()
-    total_loss = 0
-    distanceList = []
-    with torch.no_grad():
-        for batch_input, batch_output in data_loader_test:
-            outputs = net(batch_input)
-            loss = criterion(outputs, batch_output)
-            total_loss += loss.item()
-            #Take distance
-            distance = utils.euclidean_distance_loss(batch_output, outputs)
-            #Add distance to others
-            distanceList.append(distance.item())
-            
-        # Mean distance
-        mean_distance_val = statistics.mean(distanceList)
-        # Mean loss
-        avg_loss_test = total_loss / len(data_loader_test)
-    net.train()
     
     #History loss
-    history_train.append(loss_values_train)
+    history_train.append(loss_testues_train)
+    history_test.append(loss_testues_test)
     #History distance
     history_distance_train.append(euclidean_distances_train)
+    history_distance_test.append(euclidean_distances_test)
     
     #Save best results
-    bestPrint = f'     Best-loss-train: {best_loss_train:.4f}, Loss-test: {avg_loss_test:.4f} \n'
+    bestPrint = f'     Best-loss-train: {best_loss_train:.4f}, Best-loss-test: {best_loss_test:.4f} \n'
     bestResults.append(bestPrint)
     
     with open(f"{pathName}/results.txt", 'w') as file:
@@ -200,21 +206,28 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
     
     #Mean history
     mean_train_loss = np.mean(history_train, axis=0)
+    mean_test_loss = np.mean(history_test, axis=0)
     mean_train_mee = np.mean(history_distance_train, axis=0)
+    mean_test_mee = np.mean(history_distance_test, axis=0)
     #Last loss
     last_train_loss = [lst[-1] for lst in history_train]
+    last_test_loss = [lst[-1] for lst in history_test]
     #Last MEE
     last_mee_train = [lst[-1] for lst in history_distance_train]
+    last_mee_test = [lst[-1] for lst in history_distance_test]
     #Mean last
     mean_last_train_loss = np.mean(last_train_loss)
+    mean_last_test_loss = np.mean(last_test_loss)
     mean_last_mee_train = np.mean(last_mee_train)
+    mean_last_mee_test = np.mean(last_mee_test)
     #Adding best results
-    bestPrint = f"     Mean-Last-Epoch-Train: {mean_last_train_loss:.4f}, Loss-Test: {avg_loss_test:.4f}, MEE-Train: {mean_last_mee_train:.4f}, MEE-Test: {mean_distance_val:.4f}\n"
+    bestPrint = f"     Mean-Last-Epoch-Train: {mean_last_train_loss:.4f}, Mean-Last-Epoch-test: {mean_last_test_loss:.4f}, MEE-Train: {mean_last_mee_train:.4f}, MEE-test: {mean_last_mee_test:.4f}\n"
     bestResults.append(bestPrint)
     
     #Save plot loss
     display.clear_output(wait=True)
     plt.plot(mean_train_loss, label='Training Loss')
+    plt.plot(mean_test_loss, label = 'Test loss')
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
     plt.title(f'Mean-Loss per Epoch')
@@ -226,6 +239,7 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
     #Save plot loss
     display.clear_output(wait=True)
     plt.plot(mean_train_mee, label='MEE-Training')
+    plt.plot(mean_test_mee, label = 'MEE-Test')
     plt.xlabel('Epoch')
     plt.ylabel('MEE')
     plt.title(f'MEE per Epoch')
@@ -236,8 +250,8 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
 
     #Save plot accuracy
     ''' display.clear_output(wait=True)
-    plt.plot(accuracy_values_train, label='Accuracy Train')
-    plt.plot(accuracy_values_val, label='Accuracy Test')
+    plt.plot(accuracy_testues_train, label='Accuracy Train')
+    plt.plot(accuracy_testues_test, label='Accuracy Test')
     plt.xlabel('Epoch')
     plt.ylabel('Accuracy')
     plt.title('Accuracy for Epoch kfold-{kfold}')
