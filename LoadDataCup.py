@@ -10,9 +10,6 @@ class DataCup:
         ## TRAIN IMPORT DATASET
         self.x_train = utils.importDatasetCupInput(pathTrain, blind=False)
         self.y_train = utils.importDatasetCupOutput(pathTrain, blind=False)
-        ## TEST IMPORT DATASET
-        #self.x_test = utils.importDatasetCupInput(pathTestInput, blind=True)
-        #self.y_test = utils.importDatasetCupOutput(pathTestTarget, blind=True)
     
     def splitData(self):
         self.x_train, self.x_test, self.y_train, self.y_test = train_test_split(self.x_train, self.y_train, test_size=0.25,random_state=39)    
