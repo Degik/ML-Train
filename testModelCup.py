@@ -28,7 +28,7 @@ threshold = 0.01
 #penality = 0.0005
 
 #grid search
-layers_conf = [[10, 256, 256, 300, 3]]
+layers_conf = [[10, 512, 512, 600, 3]]
 ''' layers_conf = [[10, 100, 3],
 [10, 300, 3],
 [10, 100, 100, 3],
@@ -48,7 +48,7 @@ layers_conf = [[10, 256, 256, 300, 3]]
 activation_functions = ['tanh']
 optimizers = ['sgd']
 #penalities = [0.001, 0.0005, 0.0001, 0.0002]
-penalities = [0.0002]
+penalities = [0.0005]
 momentums = [0.8]
 #momentums = [0.9, 0.8, 0.6]
 #learning_rates = [0.001, 0.003, 0.0001, 0.0005] 
@@ -64,8 +64,8 @@ dataCup.splitData()
 # DATA: TENSOR, GPU, DATALOADER
 dataCup.convertToTensor()
 # MOVE TO GPU
-device = "cuda:0"
-dataCup.moveToGpu(device=device)
+#device = "cuda:0"
+#dataCup.moveToGpu(device=device)
 ###
 data_loader_train, data_loader_test = dataCup.createDataLoader()
 
@@ -92,7 +92,7 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
     print("Load regressor [net]")
     net = NetCup.NetCupRegressor(layers, structureNet, activation)
     # MOVE NET TO GPU
-    net = net.to(device)
+    #net = net.to(device)
     # SET TYPE NET
     net = net.float()
     # OPTIMIZER AND CRITERION
@@ -153,7 +153,7 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
         total = 0
         correct = 0
         #CALCULATE ACCURACY test
-        net.etest()
+        net.eval()
         total_loss = 0
         with torch.no_grad():
             for batch_input, batch_output in data_loader_test:

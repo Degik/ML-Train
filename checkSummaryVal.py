@@ -30,6 +30,6 @@ def read_and_analyze(file_name):
     # Take only 10 results
     return sorted_tests[:10]
 
-best_tests = read_and_analyze("TEST15/Summary.txt")
+best_tests = read_and_analyze("CUP_TEST/Summary.txt")
 for config, score in best_tests:
     print(f"Configurazione: {config} - Score: {score}")

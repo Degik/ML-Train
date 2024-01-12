@@ -1,0 +1,23 @@
+[10, 256, 256, 300, 3]-sgd-tanh-0.0002-0.8-0.003
+     Best-loss-train: 0.0365, Best-loss-test: 0.1186 
+     Mean-Last-Epoch-Train: 0.0090, Mean-Last-Epoch-test: 0.1187, MEE-Train: 0.2313, MEE-test: 0.4741
+
+[10, 256, 256, 300, 3]-sgd-tanh-0.0005-0.8-0.003
+     Best-loss-train: 0.0340, Best-loss-test: 0.1104 
+     Mean-Last-Epoch-Train: 0.0137, Mean-Last-Epoch-test: 0.1104, MEE-Train: 0.2585, MEE-test: 0.4807
+
+[10, 300, 256, 256, 3]-sgd-tanh-0.0001-0.8-0.003
+     Best-loss-train: 0.0406, Best-loss-test: 0.1319 
+     Mean-Last-Epoch-Train: 0.0076, Mean-Last-Epoch-test: 0.1414, MEE-Train: 0.2201, MEE-test: 0.4892
+
+[10, 512, 512, 600, 3]-sgd-tanh-0.0001-0.8-0.003
+     Best-loss-train: 0.0377, Best-loss-test: 0.1226 
+     Mean-Last-Epoch-Train: 0.0072, Mean-Last-Epoch-test: 0.1270, MEE-Train: 0.2235, MEE-test: 0.4851
+
+[10, 256, 256, 300, 3]-sgd-tanh-0.0002-0.9-0.001
+     Best-loss-train: 0.0371, Best-loss-test: 0.1204 
+     Mean-Last-Epoch-Train: 0.0103, Mean-Last-Epoch-test: 0.1204, MEE-Train: 0.2801, MEE-test: 0.5138
+
+[10, 512, 512, 600, 3]-sgd-tanh-0.0005-0.8-0.003
+     Best-loss-train: 0.0347, Best-loss-test: 0.1128 
+     Mean-Last-Epoch-Train: 0.0123, Mean-Last-Epoch-test: 0.1128, MEE-Train: 0.2570, MEE-test: 0.4912
