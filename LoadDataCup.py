@@ -12,8 +12,10 @@ class DataCup:
         self.y_train = utils.importDatasetCupOutput(pathTrain, blind=False)
     
     def splitData(self):
-        self.x_train, self.x_test, self.y_train, self.y_test = train_test_split(self.x_train, self.y_train, test_size=0.2,random_state=39)
-    
+        self.x_train, self.x_test, self.y_train, self.y_test = train_test_split(self.x_train, self.y_train, test_size=0.001,random_state=39)
+        print(self.x_test)
+        print(self.y_test)
+
     def convertToTensor(self):
         ## CONVERT TO TENSOR TRAIN SET
         self.x_train = torch.tensor(self.x_train.to_numpy())

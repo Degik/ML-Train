@@ -52,7 +52,6 @@ device = "cuda:0"
 dataCup.moveToGpu(device=device)
 ###
 data_loader_train, data_loader_test = dataCup.createDataLoader()
-
 #We will use this list for save all data for all training epoch and then calculate the mean
 history_train_loss = []
 history_train_mee = []

@@ -1,0 +1,29 @@
+Netoworks config: 
+  {'layers': [10, 256, 256, 300, 3], 'activation': 'tanh', 'optimizer': 'sgd', 'penality': 0.0002, 'momentum': 0.8, 'learning_rate': 0.003} 
+  {'layers': [10, 256, 256, 300, 3], 'activation': 'tanh', 'optimizer': 'sgd', 'penality': 0.0005, 'momentum': 0.8, 'learning_rate': 0.003} 
+  {'layers': [10, 300, 256, 256, 3], 'activation': 'tanh', 'optimizer': 'sgd', 'penality': 0.0001, 'momentum': 0.8, 'learning_rate': 0.003} 
+  {'layers': [10, 512, 512, 600, 3], 'activation': 'tanh', 'optimizer': 'sgd', 'penality': 0.0001, 'momentum': 0.8, 'learning_rate': 0.003} 
+  {'layers': [10, 256, 256, 300, 3], 'activation': 'tanh', 'optimizer': 'sgd', 'penality': 0.0002, 'momentum': 0.9, 'learning_rate': 0.001} 
+  {'layers': [10, 512, 512, 600, 3], 'activation': 'tanh', 'optimizer': 'sgd', 'penality': 0.0005, 'momentum': 0.8, 'learning_rate': 0.003} 
+
+
+
+[10, 256, 256, 300, 3]-sgd-tanh-0.0002-0.8-0.003
+     Best-loss-train: 0.0011, Best-loss-test: 0.0179 
+     Mean-Last-Epoch-Train: 0.0097, Mean-Last-Epoch-test: 0.0372, MEE-Train: 0.1387, MEE-test: 0.3342
+[10, 256, 256, 300, 3]-sgd-tanh-0.0005-0.8-0.003
+     Best-loss-train: 0.0010, Best-loss-test: 0.0155 
+     Mean-Last-Epoch-Train: 0.0159, Mean-Last-Epoch-test: 0.0503, MEE-Train: 0.2075, MEE-test: 0.3886
+[10, 300, 256, 256, 3]-sgd-tanh-0.0001-0.8-0.003
+     Best-loss-train: 0.0005, Best-loss-test: 0.0076 
+     Mean-Last-Epoch-Train: 0.0076, Mean-Last-Epoch-test: 0.0192, MEE-Train: 0.1434, MEE-test: 0.2399
+[10, 512, 512, 600, 3]-sgd-tanh-0.0001-0.8-0.003
+     Best-loss-train: 0.0001, Best-loss-test: 0.0017 
+     Mean-Last-Epoch-Train: 0.0064, Mean-Last-Epoch-test: 0.0328, MEE-Train: 0.1309, MEE-test: 0.3137
+[10, 256, 256, 300, 3]-sgd-tanh-0.0002-0.9-0.001
+     Best-loss-train: 0.0011, Best-loss-test: 0.0169 
+     Mean-Last-Epoch-Train: 0.0111, Mean-Last-Epoch-test: 0.0320, MEE-Train: 0.1699, MEE-test: 0.3098
+[10, 512, 512, 600, 3]-sgd-tanh-0.0005-0.8-0.003
+     Best-loss-train: 0.0000, Best-loss-test: 0.0006 
+     Mean-Last-Epoch-Train: 0.0140, Mean-Last-Epoch-test: 0.0339, MEE-Train: 0.1904, MEE-test: 0.3189
+MERGE-MODELS --> Mean-Last-Epoch-Train: 0.0108, Mean-Last-Epoch-test: 0.0342, MEE-Train: 0.2430, MEE-test: 0.4009
