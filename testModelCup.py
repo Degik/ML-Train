@@ -194,11 +194,11 @@ for number, config in enumerate(network_configs):
             file.write(res + "\n")
             
     #Last loss
-    last_train_loss = [lst[-1] for lst in loss_values_train]
-    last_test_loss = [lst[-1] for lst in loss_values_train]
+    last_train_loss = loss_values_train[-1]
+    last_test_loss = loss_values_test[-1]
     #Last MEE
-    last_mee_train = [lst[-1] for lst in euclidean_distance_train]
-    last_mee_test = [lst[-1] for lst in euclidean_distances_test]
+    last_mee_train = euclidean_distance_train[-1]
+    last_mee_test = euclidean_distance_test[-1]
     #Adding best results
     bestPrint = f"     Mean-Last-Epoch-Train: {last_train_loss:.4f}, Mean-Last-Epoch-test: {last_test_loss:.4f}, MEE-Train: {last_mee_train:.4f}, MEE-test: {last_mee_test:.4f}\n"
     bestResults.append(bestPrint)
