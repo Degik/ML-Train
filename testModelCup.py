@@ -22,39 +22,23 @@ pathTestInput = "CUP/ML-CUP23-TEST-INPUT.csv"
 pathTestTarget = "CUP/ML-CUP23-TEST-TARGET.csv"
 seed = int(time.time()%150)
 # HYPERPARAMETER
-num_epochs = 5000
+num_epochs = 10
 #momentum = 0.9
 threshold = 0.01
 #penality = 0.0005
 
-#grid search
-layers_conf = [[10, 512, 512, 600, 3]]
-''' layers_conf = [[10, 100, 3],
-[10, 300, 3],
-[10, 100, 100, 3],
-[10, 300, 300, 3],
-[10, 10, 10, 20, 3],
-[10, 32, 64, 64, 3],
-[10, 40, 40, 80, 3],
-[10, 256, 256, 300, 3],
-[10, 256, 300, 256, 3],
-[10, 300, 256, 256, 3],
-[10, 512, 512, 600, 3],
-[10, 512, 1024, 2048, 3],
-[10, 64, 128, 200, 128, 3], 
-[10, 80, 80, 80, 80, 80, 3],
-[10, 256, 512, 768, 1024, 3],
-[10, 256, 512, 768, 1024, 1280, 3]] '''
-activation_functions = ['tanh']
-optimizers = ['sgd']
-#penalities = [0.001, 0.0005, 0.0001, 0.0002]
-penalities = [0.0005]
-momentums = [0.8]
-#momentums = [0.9, 0.8, 0.6]
-#learning_rates = [0.001, 0.003, 0.0001, 0.0005] 
-learning_rates = [0.003]
+#Netowrks
+network_configs = [
+    {"layers": [10, 256, 256, 300, 3], "activation": "tanh", "optimizer": "sgd", "penality": 0.0002, "momentum": 0.8, "learning_rate": 0.003},
+    {"layers": [10, 256, 256, 300, 3], "activation": "tanh", "optimizer": "sgd", "penality": 0.0005, "momentum": 0.8, "learning_rate": 0.003},
+    {"layers": [10, 300, 256, 256, 3], "activation": "tanh", "optimizer": "sgd", "penality": 0.0001, "momentum": 0.8, "learning_rate": 0.003},
+    {"layers": [10, 512, 512, 600, 3], "activation": "tanh", "optimizer": "sgd", "penality": 0.0001, "momentum": 0.8, "learning_rate": 0.003},
+    {"layers": [10, 256, 256, 300, 3], "activation": "tanh", "optimizer": "sgd", "penality": 0.0002, "momentum": 0.9, "learning_rate": 0.001},
+    {"layers": [10, 512, 512, 600, 3], "activation": "tanh", "optimizer": "sgd", "penality": 0.0005, "momentum": 0.8, "learning_rate": 0.003},
+    # Add here others config
+]
 #
-numberTest = len(layers_conf) * len(activation_functions) * len(optimizers) * len(penalities) * len(momentums) * len(learning_rates)
+numberTest = len(network_configs)
 bestResults = []
 
 # IMPORT DATA
@@ -70,8 +54,14 @@ dataCup.convertToTensor()
 data_loader_train, data_loader_test = dataCup.createDataLoader()
 
 
-for number, config in enumerate(product(layers_conf, activation_functions, optimizers, penalities, momentums, learning_rates)):
-    layers, activation, optimizerName, penality, momentum, lr = config
+for number, config in enumerate(network_configs):
+    #Net settings
+    layers = config['layers']
+    activation = config['activation']
+    optimizerName = config['optimizer']
+    penality = config['penality']
+    momentum = config['momentum']
+    lr = config['learning_rate']
     # PATH
     testName = f"{layers}-{optimizerName}-{activation}-{penality}-{momentum}-{lr}"
     pathName = f'modelsCup/Cup-{testName}'
@@ -80,11 +70,11 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
     # CREATE DIR
     os.makedirs(pathName, exist_ok=True)
     
-    history_train = []
-    history_test = []
-    
-    history_distance_train = []
-    history_distance_test = []
+    #We will use this list for save all data for all training epoch and then calculate the mean
+    history_train_loss = []
+    history_train_mee = []
+    history_test_loss = []
+    history_test_mee = []
     
     # CREATE NET
     structureNet = []
@@ -110,9 +100,9 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
         exit(1)
     
     #Values used for graphs
-    loss_testues_train = []
+    loss_values_train = []
     accuracy_testues_train = []
-    loss_testues_test = []
+    loss_values_test = []
     accuracy_testues_test = []
     euclidean_distances_train = []
     euclidean_distances_test = []
@@ -131,7 +121,7 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
         total_loss = 0
         total = 0
         correct = 0
-
+        
         for batch_input, batch_output in data_loader_train:
             #Forward pass
             outputs = net(batch_input)
@@ -148,7 +138,7 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
             #Add distance to others
             euclidean_distance_train.append(distance.item())
         avg_loss_train = total_loss / len(data_loader_train)
-        loss_testues_train.append(avg_loss_train)
+        loss_values_train.append(avg_loss_train)
 
         total = 0
         correct = 0
@@ -174,7 +164,7 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
             # Add to list
             euclidean_distances_train.append(mean_distance_train)
             euclidean_distances_test.append(mean_distance_test)
-            loss_testues_test.append(avg_loss_test)
+            loss_values_test.append(avg_loss_test)
         net.train()
         
         result = f'Epoch[{epoch+1}/{num_epochs}] Learning-rate: {lr}, Loss-Train: {avg_loss_train:.4f}, Loss-test: {avg_loss_test:.4f} MEE-Train: {mean_distance_train:.4f}, MEE-test: {mean_distance_test:.4f}'
@@ -189,11 +179,11 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
     #END EPOCHS
     
     #History loss
-    history_train.append(loss_testues_train)
-    history_test.append(loss_testues_test)
+    history_train_loss.append(loss_values_train)
+    history_test_loss.append(loss_values_test)
     #History distance
-    history_distance_train.append(euclidean_distances_train)
-    history_distance_test.append(euclidean_distances_test)
+    history_train_mee.append(euclidean_distances_train)
+    history_test_mee.append(euclidean_distances_test)
     
     #Save best results
     bestPrint = f'     Best-loss-train: {best_loss_train:.4f}, Best-loss-test: {best_loss_test:.4f} \n'
@@ -202,32 +192,21 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
     with open(f"{pathName}/results.txt", 'w') as file:
         for res in results:
             file.write(res + "\n")
-    #END KFOLD
-    
-    #Mean history
-    mean_train_loss = np.mean(history_train, axis=0)
-    mean_test_loss = np.mean(history_test, axis=0)
-    mean_train_mee = np.mean(history_distance_train, axis=0)
-    mean_test_mee = np.mean(history_distance_test, axis=0)
+            
     #Last loss
-    last_train_loss = [lst[-1] for lst in history_train]
-    last_test_loss = [lst[-1] for lst in history_test]
+    last_train_loss = [lst[-1] for lst in loss_values_train]
+    last_test_loss = [lst[-1] for lst in loss_values_train]
     #Last MEE
-    last_mee_train = [lst[-1] for lst in history_distance_train]
-    last_mee_test = [lst[-1] for lst in history_distance_test]
-    #Mean last
-    mean_last_train_loss = np.mean(last_train_loss)
-    mean_last_test_loss = np.mean(last_test_loss)
-    mean_last_mee_train = np.mean(last_mee_train)
-    mean_last_mee_test = np.mean(last_mee_test)
+    last_mee_train = [lst[-1] for lst in euclidean_distance_train]
+    last_mee_test = [lst[-1] for lst in euclidean_distances_test]
     #Adding best results
-    bestPrint = f"     Mean-Last-Epoch-Train: {mean_last_train_loss:.4f}, Mean-Last-Epoch-test: {mean_last_test_loss:.4f}, MEE-Train: {mean_last_mee_train:.4f}, MEE-test: {mean_last_mee_test:.4f}\n"
+    bestPrint = f"     Mean-Last-Epoch-Train: {last_train_loss:.4f}, Mean-Last-Epoch-test: {last_test_loss:.4f}, MEE-Train: {last_mee_train:.4f}, MEE-test: {last_mee_test:.4f}\n"
     bestResults.append(bestPrint)
     
     #Save plot loss
     display.clear_output(wait=True)
-    plt.plot(mean_train_loss, label='Training Loss')
-    plt.plot(mean_test_loss, label = 'Test loss')
+    plt.plot(loss_values_train, label='Training Loss')
+    plt.plot(loss_values_test, label = 'Test loss')
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
     plt.title(f'Mean-Loss per Epoch')
@@ -238,8 +217,8 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
     
     #Save plot loss
     display.clear_output(wait=True)
-    plt.plot(mean_train_mee, label='MEE-Training')
-    plt.plot(mean_test_mee, label = 'MEE-Test')
+    plt.plot(euclidean_distance_train, label='MEE-Training')
+    plt.plot(euclidean_distance_test, label = 'MEE-Test')
     plt.xlabel('Epoch')
     plt.ylabel('MEE')
     plt.title(f'MEE per Epoch')
@@ -247,17 +226,6 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
     plt.legend()
     plt.savefig(f'{pathName}/MEE.png')
     plt.clf()
-
-    #Save plot accuracy
-    ''' display.clear_output(wait=True)
-    plt.plot(accuracy_testues_train, label='Accuracy Train')
-    plt.plot(accuracy_testues_test, label='Accuracy Test')
-    plt.xlabel('Epoch')
-    plt.ylabel('Accuracy')
-    plt.title('Accuracy for Epoch kfold-{kfold}')
-    plt.legend()
-    plt.savefig(f'{pathName}/Accuracy-test.png')
-    plt.clf() '''
     
     #Save model
     torch.save(net, f'{pathName}/model.pth')
@@ -265,9 +233,57 @@ for number, config in enumerate(product(layers_conf, activation_functions, optim
     with open(f"{pathName}/layer-structure.txt", "w") as file:
         for struct in structureNet:
             file.write(struct + "\n")
-    
-with open("Summary.txt", "w") as file:
-    settings = f"Grid Search Params: \n Seed: {seed} \n Layers-conf: {layers_conf} \n Activation-function: {activation_functions} \n Optimizers: {optimizers} \n Lambdas: {penalities}\n Momentums: {momentums}\n Learning-rates: {learning_rates} \n\n"
-    file.write(settings)
+
+#MEAN ALL DATA
+#Mean history
+mean_train_loss = np.mean(history_train_loss, axis=0)
+mean_test_loss = np.mean(history_test_loss, axis=0)
+mean_train_mee = np.mean(history_train_mee, axis=0)
+mean_test_mee = np.mean(history_test_mee, axis=0)
+#Last loss
+last_train_loss = [lst[-1] for lst in history_train_loss]
+last_test_loss = [lst[-1] for lst in history_test_loss]
+#Last MEE
+last_mee_train = [lst[-1] for lst in mean_train_mee]
+last_mee_test = [lst[-1] for lst in mean_test_mee]
+#Mean last
+mean_last_train_loss = np.mean(last_train_loss)
+mean_last_test_loss = np.mean(last_test_loss)
+mean_last_mee_train = np.mean(last_mee_train)
+mean_last_mee_test = np.mean(last_mee_test)
+
+bestPrint = f"MERGE-MODELS --> Mean-Last-Epoch-Train: {mean_last_train_loss:.4f}, Mean-Last-Epoch-test: {mean_last_test_loss:.4f}, MEE-Train: {mean_last_mee_train:.4f}, MEE-test: {mean_last_mee_test:.4f}\n"
+bestResults.append(bestPrint)
+
+#Save plot loss
+display.clear_output(wait=True)
+plt.plot(mean_train_loss, label='Training Loss')
+plt.plot(mean_test_loss, label = 'Test loss')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.title(f'Mean-Loss per Epoch')
+plt.ylim([0, 1.2])
+plt.legend()
+plt.savefig(f'modelsCup/Mean-Loss-Merge.png')
+plt.clf()
+
+#Save plot loss
+display.clear_output(wait=True)
+plt.plot(mean_train_mee, label='MEE-Training')
+plt.plot(mean_test_mee, label = 'MEE-Test')
+plt.xlabel('Epoch')
+plt.ylabel('MEE')
+plt.title(f'MEE per Epoch')
+plt.ylim([0, 3.0])
+plt.legend()
+plt.savefig(f'modelsCup/MEE-Merge.png')
+plt.clf()
+
+
+with open("modelsCup/Summary.txt", "w") as file:
+    for config in network_configs:
+        file.write(config)
+    file.write("\n\n\n")
     for best in bestResults:
         file.write(best)
+    

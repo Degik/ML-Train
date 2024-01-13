@@ -1,0 +1,12 @@
+Grid Search Params: 
+ Seed: 83 
+ Layers-conf: [[10, 512, 512, 600, 3]] 
+ Activation-function: ['tanh'] 
+ Optimizers: ['sgd'] 
+ Lambdas: [0.0005]
+ Momentums: [0.8]
+ Learning-rates: [0.003] 
+
+[10, 512, 512, 600, 3]-sgd-tanh-0.0005-0.8-0.003
+     Best-loss-train: 0.2890, Best-loss-test: 0.2890 
+     Mean-Last-Epoch-Train: 0.1372, Mean-Last-Epoch-test: 0.2890, MEE-Train: 1.2313, MEE-test: 1.3726

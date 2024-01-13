@@ -12,7 +12,8 @@ class DataCup:
         self.y_train = utils.importDatasetCupOutput(pathTrain, blind=False)
     
     def splitData(self):
-        self.x_train, self.x_test, self.y_train, self.y_test = train_test_split(self.x_train, self.y_train, test_size=0.2,random_state=39)    
+        self.x_train, self.x_test, self.y_train, self.y_test = train_test_split(self.x_train, self.y_train, test_size=0.2,random_state=39)
+        print(self.x_train)   
     
     def convertToTensor(self):
         ## CONVERT TO TENSOR TRAIN SET
@@ -38,13 +39,13 @@ class DataCup:
         
     def createDataLoader(self) -> (DataLoader, DataLoader):
         # CREATE DATALOADER TRAIN
-        batchTrain =  64
+        batchTrain = 1000
         print("Batch size for training: ", batchTrain)
         dataset_train = TensorDataset(self.x_train, self.y_train)
-        data_loader_train = DataLoader(dataset_train, batch_size=batchTrain, shuffle=False)
+        data_loader_train = DataLoader(dataset_train, batch_size=batchTrain, shuffle=True)
         # CREATE DATALOADER TEST
-        batchTest = 64
+        batchTest = 1000
         print("Batch size for testing: ", batchTest)
         dataset_test = TensorDataset(self.x_test, self.y_test)
-        data_loader_test = DataLoader(dataset_test, batch_size=batchTest, shuffle=False)
+        data_loader_test = DataLoader(dataset_test, batch_size=batchTest, shuffle=True)
         return data_loader_train, data_loader_test
