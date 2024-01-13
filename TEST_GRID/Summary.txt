@@ -1,0 +1,33 @@
+Grid Search Params: 
+ Seed: 6 
+ Layers-conf: [[10, 512, 512, 600, 3]] 
+ Activation-function: ['tanh', 'relu'] 
+ Optimizers: ['sgd', 'adam'] 
+ Lambdas: [0.0001]
+ Momentums: [0.9]
+ Learning-rates: [0.001] 
+
+[10, 512, 512, 600, 3]-sgd-tanh-0.0001-0.9-0.001
+     KFold-0 -> Best-loss-train: 0.0496, Best-loss-val: 0.1240 
+     KFold-1 -> Best-loss-train: 0.0733, Best-loss-val: 0.1832 
+     KFold-2 -> Best-loss-train: 0.0691, Best-loss-val: 0.1728 
+     KFold-3 -> Best-loss-train: 0.0782, Best-loss-val: 0.1955 
+     Mean-Last-Epoch-Train: 0.0063, Mean-Last-Epoch-Val: 0.1700, MEE-Train: 0.2551, MEE-Val: 0.5883
+[10, 512, 512, 600, 3]-adam-tanh-0.0001-0.9-0.001
+     KFold-0 -> Best-loss-train: 0.1253, Best-loss-val: 0.3132 
+     KFold-1 -> Best-loss-train: 0.1751, Best-loss-val: 0.4378 
+     KFold-2 -> Best-loss-train: 0.2248, Best-loss-val: 0.5620 
+     KFold-3 -> Best-loss-train: 0.2546, Best-loss-val: 0.6364 
+     Mean-Last-Epoch-Train: 0.0403, Mean-Last-Epoch-Val: 1.2924, MEE-Train: 0.5505, MEE-Val: 1.5243
+[10, 512, 512, 600, 3]-sgd-relu-0.0001-0.9-0.001
+     KFold-0 -> Best-loss-train: 0.0630, Best-loss-val: 0.1575 
+     KFold-1 -> Best-loss-train: 0.0814, Best-loss-val: 0.2034 
+     KFold-2 -> Best-loss-train: 0.1122, Best-loss-val: 0.2804 
+     KFold-3 -> Best-loss-train: 0.1022, Best-loss-val: 0.2556 
+     Mean-Last-Epoch-Train: 0.0510, Mean-Last-Epoch-Val: 0.3389, MEE-Train: 0.3214, MEE-Val: 0.7312
+[10, 512, 512, 600, 3]-adam-relu-0.0001-0.9-0.001
+     KFold-0 -> Best-loss-train: 0.0825, Best-loss-val: 0.2063 
+     KFold-1 -> Best-loss-train: 0.0901, Best-loss-val: 0.2252 
+     KFold-2 -> Best-loss-train: 0.1214, Best-loss-val: 0.3034 
+     KFold-3 -> Best-loss-train: 0.0857, Best-loss-val: 0.2143 
+     Mean-Last-Epoch-Train: 0.0289, Mean-Last-Epoch-Val: 0.2781, MEE-Train: 0.6317, MEE-Val: 0.9917
