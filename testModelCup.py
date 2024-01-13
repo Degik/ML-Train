@@ -22,7 +22,7 @@ pathTestInput = "CUP/ML-CUP23-TEST-INPUT.csv"
 pathTestTarget = "CUP/ML-CUP23-TEST-TARGET.csv"
 seed = int(time.time()%150)
 # HYPERPARAMETER
-num_epochs = 5000
+num_epochs = 300
 #momentum = 0.9
 threshold = 0.01
 #penality = 0.0005
@@ -49,7 +49,7 @@ dataCup.splitData()
 dataCup.convertToTensor()
 # MOVE TO GPU
 device = "cuda:0"
-dataCup.moveToGpu(device=device)
+#dataCup.moveToGpu(device=device)
 ###
 data_loader_train, data_loader_test = dataCup.createDataLoader()
 
@@ -82,7 +82,7 @@ for number, config in enumerate(network_configs):
     print("Load regressor [net]")
     net = NetCup.NetCupRegressor(layers, structureNet, activation)
     # MOVE NET TO GPU
-    net = net.to(device)
+    #net = net.to(device)
     # SET TYPE NET
     net = net.float()
     # OPTIMIZER AND CRITERION
@@ -104,11 +104,12 @@ for number, config in enumerate(network_configs):
     accuracy_testues_train = []
     loss_values_test = []
     accuracy_testues_test = []
-    euclidean_distances_train = []
-    euclidean_distances_test = []
     # Distance list
     euclidean_distance_train = []
     euclidean_distance_test = []
+    # Distances list
+    euclidean_distances_train = []
+    euclidean_distances_test = []
     # BEST
     best_accuracy_train = 0.0
     best_accuracy_test = 0.0
@@ -150,20 +151,23 @@ for number, config in enumerate(network_configs):
                 outputs = net(batch_input)
                 loss = criterion(outputs, batch_output)
                 total_loss += loss.item()
-                #Take distance
+                # Take distance
+                # Return the mean for the distance inside the batch
                 distance = utils.euclidean_distance_loss(batch_output, outputs)
-                #Add distance to others
+                # Add distance to others
+                # Take each distance for each bacth_size
                 euclidean_distance_test.append(distance.item())
                 
             # Mean distance
+            # Calculate the mean between all batch inside the epoch
             mean_distance_train = statistics.mean(euclidean_distance_train)
             mean_distance_test = statistics.mean(euclidean_distance_test)
+            # Save the mean for the current epoch in the list
+            euclidean_distances_train.append(mean_distance_train)
+            euclidean_distances_test.append(mean_distance_test)
             # Mean loss
             avg_loss_train = total_loss / len(data_loader_train)
             avg_loss_test = total_loss / len(data_loader_test)
-            # Add to list
-            euclidean_distances_train.append(mean_distance_train)
-            euclidean_distances_test.append(mean_distance_test)
             loss_values_test.append(avg_loss_test)
         net.train()
         
@@ -217,8 +221,8 @@ for number, config in enumerate(network_configs):
     
     #Save plot loss
     display.clear_output(wait=True)
-    plt.plot(euclidean_distance_train, label='MEE-Training')
-    plt.plot(euclidean_distance_test, label = 'MEE-Test')
+    plt.plot(euclidean_distances_train, label='MEE-Training')
+    plt.plot(euclidean_distances_test, label = 'MEE-Test')
     plt.xlabel('Epoch')
     plt.ylabel('MEE')
     plt.title(f'MEE per Epoch')
@@ -277,10 +281,9 @@ plt.clf()
 
 
 with open("modelsCup/Summary.txt", "w") as file:
+    file.write("Netoworks config: " + "\n")
     for config in network_configs:
-        file.write(str(config))
+        file.write(f"  {str(config)} \n")
     file.write("\n\n\n")
     for best in bestResults:
         file.write(best)
-    
-
