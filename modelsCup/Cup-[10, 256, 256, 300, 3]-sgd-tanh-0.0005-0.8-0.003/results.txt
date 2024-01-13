@@ -1,0 +1,10 @@
+Epoch[1/10] Learning-rate: 0.003, Loss-Train: 29.7006, Loss-test: 96.5270 MEE-Train: 30.6400, MEE-test: 15.9450
+Epoch[2/10] Learning-rate: 0.003, Loss-Train: 10.7847, Loss-test: 35.0503 MEE-Train: 21.2465, MEE-test: 12.6661
+Epoch[3/10] Learning-rate: 0.003, Loss-Train: 7.1754, Loss-test: 23.3199 MEE-Train: 16.9393, MEE-test: 10.9569
+Epoch[4/10] Learning-rate: 0.003, Loss-Train: 4.4205, Loss-test: 14.3667 MEE-Train: 14.3572, MEE-test: 9.6519
+Epoch[5/10] Learning-rate: 0.003, Loss-Train: 3.1447, Loss-test: 10.2202 MEE-Train: 12.5866, MEE-test: 8.6948
+Epoch[6/10] Learning-rate: 0.003, Loss-Train: 2.0905, Loss-test: 6.7942 MEE-Train: 11.2223, MEE-test: 7.8887
+Epoch[7/10] Learning-rate: 0.003, Loss-Train: 1.4428, Loss-test: 4.6890 MEE-Train: 10.1332, MEE-test: 7.2234
+Epoch[8/10] Learning-rate: 0.003, Loss-Train: 0.9921, Loss-test: 3.2243 MEE-Train: 9.2467, MEE-test: 6.6500
+Epoch[9/10] Learning-rate: 0.003, Loss-Train: 0.9809, Loss-test: 3.1880 MEE-Train: 8.5088, MEE-test: 6.2026
+Epoch[10/10] Learning-rate: 0.003, Loss-Train: 0.8360, Loss-test: 2.7171 MEE-Train: 7.8944, MEE-test: 5.8182

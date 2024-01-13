@@ -53,6 +53,12 @@ dataCup.convertToTensor()
 ###
 data_loader_train, data_loader_test = dataCup.createDataLoader()
 
+#We will use this list for save all data for all training epoch and then calculate the mean
+history_train_loss = []
+history_train_mee = []
+history_test_loss = []
+history_test_mee = []
+
 
 for number, config in enumerate(network_configs):
     #Net settings
@@ -69,12 +75,6 @@ for number, config in enumerate(network_configs):
 
     # CREATE DIR
     os.makedirs(pathName, exist_ok=True)
-    
-    #We will use this list for save all data for all training epoch and then calculate the mean
-    history_train_loss = []
-    history_train_mee = []
-    history_test_loss = []
-    history_test_mee = []
     
     # CREATE NET
     structureNet = []
@@ -233,6 +233,7 @@ for number, config in enumerate(network_configs):
     with open(f"{pathName}/layer-structure.txt", "w") as file:
         for struct in structureNet:
             file.write(struct + "\n")
+#END MODELS CONFIG
 
 #MEAN ALL DATA
 #Mean history
@@ -241,18 +242,13 @@ mean_test_loss = np.mean(history_test_loss, axis=0)
 mean_train_mee = np.mean(history_train_mee, axis=0)
 mean_test_mee = np.mean(history_test_mee, axis=0)
 #Last loss
-last_train_loss = [lst[-1] for lst in history_train_loss]
-last_test_loss = [lst[-1] for lst in history_test_loss]
+last_mean_train_loss = mean_train_loss[-1]
+last_mean_test_loss = mean_test_loss[-1]
 #Last MEE
-last_mee_train = [lst[-1] for lst in mean_train_mee]
-last_mee_test = [lst[-1] for lst in mean_test_mee]
-#Mean last
-mean_last_train_loss = np.mean(last_train_loss)
-mean_last_test_loss = np.mean(last_test_loss)
-mean_last_mee_train = np.mean(last_mee_train)
-mean_last_mee_test = np.mean(last_mee_test)
+last_mean_train_mee = mean_train_mee[-1]
+last_mean_test_mee = mean_test_mee[-1]
 
-bestPrint = f"MERGE-MODELS --> Mean-Last-Epoch-Train: {mean_last_train_loss:.4f}, Mean-Last-Epoch-test: {mean_last_test_loss:.4f}, MEE-Train: {mean_last_mee_train:.4f}, MEE-test: {mean_last_mee_test:.4f}\n"
+bestPrint = f"MERGE-MODELS --> Mean-Last-Epoch-Train: {last_mean_train_loss:.4f}, Mean-Last-Epoch-test: {last_mean_test_loss:.4f}, MEE-Train: {last_mean_train_mee:.4f}, MEE-test: {last_mean_test_mee:.4f}\n"
 bestResults.append(bestPrint)
 
 #Save plot loss
@@ -282,8 +278,9 @@ plt.clf()
 
 with open("modelsCup/Summary.txt", "w") as file:
     for config in network_configs:
-        file.write(config)
+        file.write(str(config))
     file.write("\n\n\n")
     for best in bestResults:
         file.write(best)
     
+

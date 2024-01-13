@@ -1,0 +1,22 @@
+{'layers': [10, 256, 256, 300, 3], 'activation': 'tanh', 'optimizer': 'sgd', 'penality': 0.0002, 'momentum': 0.8, 'learning_rate': 0.003}{'layers': [10, 256, 256, 300, 3], 'activation': 'tanh', 'optimizer': 'sgd', 'penality': 0.0005, 'momentum': 0.8, 'learning_rate': 0.003}{'layers': [10, 300, 256, 256, 3], 'activation': 'tanh', 'optimizer': 'sgd', 'penality': 0.0001, 'momentum': 0.8, 'learning_rate': 0.003}{'layers': [10, 512, 512, 600, 3], 'activation': 'tanh', 'optimizer': 'sgd', 'penality': 0.0001, 'momentum': 0.8, 'learning_rate': 0.003}{'layers': [10, 256, 256, 300, 3], 'activation': 'tanh', 'optimizer': 'sgd', 'penality': 0.0002, 'momentum': 0.9, 'learning_rate': 0.001}{'layers': [10, 512, 512, 600, 3], 'activation': 'tanh', 'optimizer': 'sgd', 'penality': 0.0005, 'momentum': 0.8, 'learning_rate': 0.003}
+
+
+[10, 256, 256, 300, 3]-sgd-tanh-0.0002-0.8-0.003
+     Best-loss-train: 0.7384, Best-loss-test: 2.3999 
+     Mean-Last-Epoch-Train: 3.3368, Mean-Last-Epoch-test: 2.3999, MEE-Train: 2.0002, MEE-test: 1.9607
+[10, 256, 256, 300, 3]-sgd-tanh-0.0005-0.8-0.003
+     Best-loss-train: 0.8360, Best-loss-test: 2.7171 
+     Mean-Last-Epoch-Train: 3.2103, Mean-Last-Epoch-test: 2.7171, MEE-Train: 1.6233, MEE-test: 2.5793
+[10, 300, 256, 256, 3]-sgd-tanh-0.0001-0.8-0.003
+     Best-loss-train: 0.7960, Best-loss-test: 2.5871 
+     Mean-Last-Epoch-Train: 3.5746, Mean-Last-Epoch-test: 2.5871, MEE-Train: 2.4253, MEE-test: 2.3100
+[10, 512, 512, 600, 3]-sgd-tanh-0.0001-0.8-0.003
+     Best-loss-train: 0.7517, Best-loss-test: 2.4431 
+     Mean-Last-Epoch-Train: 3.0976, Mean-Last-Epoch-test: 2.4431, MEE-Train: 1.9478, MEE-test: 2.4933
+[10, 256, 256, 300, 3]-sgd-tanh-0.0002-0.9-0.001
+     Best-loss-train: 2.4726, Best-loss-test: 8.0360 
+     Mean-Last-Epoch-Train: 9.2019, Mean-Last-Epoch-test: 8.0360, MEE-Train: 3.8761, MEE-test: 4.6188
+[10, 512, 512, 600, 3]-sgd-tanh-0.0005-0.8-0.003
+     Best-loss-train: 0.7345, Best-loss-test: 2.3870 
+     Mean-Last-Epoch-Train: 3.5030, Mean-Last-Epoch-test: 2.3870, MEE-Train: 3.4559, MEE-test: 1.7761
+MERGE-MODELS --> Mean-Last-Epoch-Train: 4.3207, Mean-Last-Epoch-test: 3.4284, MEE-Train: 8.0903, MEE-test: 6.0352
