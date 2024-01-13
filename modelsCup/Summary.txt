@@ -2,21 +2,21 @@
 
 
 [10, 256, 256, 300, 3]-sgd-tanh-0.0002-0.8-0.003
-     Best-loss-train: 0.0302, Best-loss-test: 0.0982 
-     Mean-Last-Epoch-Train: 0.0094, Mean-Last-Epoch-test: 0.1081, MEE-Train: 0.1477, MEE-test: 0.2768
+     Best-loss-train: 0.0385, Best-loss-test: 0.1252 
+     Mean-Last-Epoch-Train: 0.0085, Mean-Last-Epoch-test: 0.1252, MEE-Train: 0.0992, MEE-test: 0.3449
 [10, 256, 256, 300, 3]-sgd-tanh-0.0005-0.8-0.003
-     Best-loss-train: 0.0288, Best-loss-test: 0.0937 
-     Mean-Last-Epoch-Train: 0.0137, Mean-Last-Epoch-test: 0.1507, MEE-Train: 0.1932, MEE-test: 0.6299
+     Best-loss-train: 0.0327, Best-loss-test: 0.1064 
+     Mean-Last-Epoch-Train: 0.0131, Mean-Last-Epoch-test: 0.1064, MEE-Train: 0.1268, MEE-test: 0.3226
 [10, 300, 256, 256, 3]-sgd-tanh-0.0001-0.8-0.003
-     Best-loss-train: 0.0308, Best-loss-test: 0.1002 
-     Mean-Last-Epoch-Train: 0.0073, Mean-Last-Epoch-test: 0.1140, MEE-Train: 0.1487, MEE-test: 0.3867
+     Best-loss-train: 0.0430, Best-loss-test: 0.1397 
+     Mean-Last-Epoch-Train: 0.0073, Mean-Last-Epoch-test: 0.1494, MEE-Train: 0.0883, MEE-test: 0.3752
 [10, 512, 512, 600, 3]-sgd-tanh-0.0001-0.8-0.003
-     Best-loss-train: 0.0304, Best-loss-test: 0.0987 
-     Mean-Last-Epoch-Train: 0.0065, Mean-Last-Epoch-test: 0.1239, MEE-Train: 0.1263, MEE-test: 0.4658
+     Best-loss-train: 0.0339, Best-loss-test: 0.1101 
+     Mean-Last-Epoch-Train: 0.0061, Mean-Last-Epoch-test: 0.1101, MEE-Train: 0.0869, MEE-test: 0.3805
 [10, 256, 256, 300, 3]-sgd-tanh-0.0002-0.9-0.001
-     Best-loss-train: 0.0374, Best-loss-test: 0.1216 
-     Mean-Last-Epoch-Train: 0.0102, Mean-Last-Epoch-test: 0.1400, MEE-Train: 0.1518, MEE-test: 0.4649
+     Best-loss-train: 0.0368, Best-loss-test: 0.1198 
+     Mean-Last-Epoch-Train: 0.0101, Mean-Last-Epoch-test: 0.1198, MEE-Train: 0.1015, MEE-test: 0.3990
 [10, 512, 512, 600, 3]-sgd-tanh-0.0005-0.8-0.003
-     Best-loss-train: 0.0325, Best-loss-test: 0.1058 
-     Mean-Last-Epoch-Train: 0.0128, Mean-Last-Epoch-test: 0.1905, MEE-Train: 0.1756, MEE-test: 0.7122
-MERGE-MODELS --> Mean-Last-Epoch-Train: 0.0100, Mean-Last-Epoch-test: 0.1378, MEE-Train: 0.2463, MEE-test: 0.4964
+     Best-loss-train: 0.0352, Best-loss-test: 0.1144 
+     Mean-Last-Epoch-Train: 0.0118, Mean-Last-Epoch-test: 0.1144, MEE-Train: 0.1166, MEE-test: 0.3817
+MERGE-MODELS --> Mean-Last-Epoch-Train: 0.0095, Mean-Last-Epoch-test: 0.1209, MEE-Train: 0.2416, MEE-test: 0.4880
