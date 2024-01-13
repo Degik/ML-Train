@@ -41,10 +41,10 @@ class DataCup:
         batchTrain = 64
         print("Batch size for training: ", batchTrain)
         dataset_train = TensorDataset(self.x_train, self.y_train)
-        data_loader_train = DataLoader(dataset_train, batch_size=batchTrain, shuffle=False)
+        data_loader_train = DataLoader(dataset_train, batch_size=batchTrain, shuffle=True)
         # CREATE DATALOADER TEST
         batchTest = 64
         print("Batch size for testing: ", batchTest)
         dataset_test = TensorDataset(self.x_test, self.y_test)
-        data_loader_test = DataLoader(dataset_test, batch_size=batchTest, shuffle=False)
+        data_loader_test = DataLoader(dataset_test, batch_size=batchTest, shuffle=True)
         return data_loader_train, data_loader_test
