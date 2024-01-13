@@ -22,7 +22,7 @@ pathTestInput = "CUP/ML-CUP23-TEST-INPUT.csv"
 pathTestTarget = "CUP/ML-CUP23-TEST-TARGET.csv"
 seed = int(time.time()%150)
 # HYPERPARAMETER
-num_epochs = 300
+num_epochs = 5000
 #momentum = 0.9
 threshold = 0.01
 #penality = 0.0005
@@ -49,7 +49,7 @@ dataCup.splitData()
 dataCup.convertToTensor()
 # MOVE TO GPU
 device = "cuda:0"
-#dataCup.moveToGpu(device=device)
+dataCup.moveToGpu(device=device)
 ###
 data_loader_train, data_loader_test = dataCup.createDataLoader()
 
@@ -82,7 +82,7 @@ for number, config in enumerate(network_configs):
     print("Load regressor [net]")
     net = NetCup.NetCupRegressor(layers, structureNet, activation)
     # MOVE NET TO GPU
-    #net = net.to(device)
+    net = net.to(device)
     # SET TYPE NET
     net = net.float()
     # OPTIMIZER AND CRITERION
